@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/collectionFragment">
+
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.android.course.whatsonnetflix.presentation.CollectionFragment"
+        android:label="CollectionFragment" />
+    <fragment
+        android:id="@+id/newContentFragment"
+        android:name="com.android.course.whatsonnetflix.presentation.newcontent.NewContentFragment"
+        android:label="NewContentFragment" />
+    <fragment
+        android:id="@+id/deletedContentFragment"
+        android:name="com.android.course.whatsonnetflix.presentation.deletedcontent.DeletedContentFragment"
+        android:label="fragment_deleted_content"
+        tools:layout="@layout/fragment_deleted_content" />
+</navigation>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="newContent"
+            type="com.android.course.whatsonnetflix.domain.NewContent" />
+
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.presentation.newcontent.NewContentAdapter.NewContentListener" />
+    </data>
+
+    <ImageView
+        imageUrl="@{newContent.img}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{() -> clickListener.onClick(newContent)}"
+        android:padding="4dp"
+        android:adjustViewBounds="true"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+</layout>
