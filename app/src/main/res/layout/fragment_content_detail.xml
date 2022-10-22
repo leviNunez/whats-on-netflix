@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_circularProgressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_large"
+                tools:context=".NewContentDetailsFragment">
+
+                <LinearLayout
+                    android:id="@+id/ll_image_and_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/spacer_2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/content_image"
+                        imageUrl="@{viewModel.content.img}"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        tools:src="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_content_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/spacing_normal">
+
+                        <TextView
+                            android:id="@+id/content_title_text"
+                            style="@style/MainHeaderText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.content.title}"
+                            tools:text="Breaking Bad" />
+
+                        <TextView
+                            android:id="@+id/content_type_text"
+                            style="@style/BodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:contentDetailString="@{viewModel.content.titleType}"
+                            tools:text="(Series)" />
+
+                        <Space
+                            android:id="@+id/spacer_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/spacer_high_normal" />
+
+                        <TextView
+                            android:id="@+id/content_year_text"
+                            style="@style/BodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/content_year_text"
+                            app:contentDetailString="@{viewModel.content.year}"
+                            tools:text="Year: 2008" />
+
+                        <TextView
+                            android:id="@+id/content_runtime_text"
+                            style="@style/BodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/content_runtime_text"
+                            app:contentDetailString="@{viewModel.content.runtime}"
+                            tools:text="Runtime: hour-long" />
+
+                        <TextView
+                            android:id="@+id/content_streaming_date_text"
+                            style="@style/BodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/content_streaming_date_text"
+                            app:contentDetailString="@{viewModel.content.titleDate}"
+                            tools:text="Streaming date: 2015-04-14" />
+
+                        <TextView
+                            android:id="@+id/content_maturity_label_text"
+                            style="@style/BodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/maturity_label_text"
+                            app:contentDetailString="@{viewModel.content.maturityLabel}"
+                            tools:text="Maturity label: Suitable for mature audiences only" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:id="@+id/spacer_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacer_high_large"
+                    app:layout_constraintBottom_toTopOf="@+id/content_synopsis"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_image_and_info" />
+
+                <TextView
+                    android:id="@+id/content_synopsis"
+                    style="@style/SubHeaderText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/content_synopsis_text"
+                    app:contentDetailString="@{viewModel.content.synopsis}"
+                    app:layout_constraintTop_toBottomOf="@id/spacer_2"
+                    tools:text="Synopsis: In a grand country manor, a sinister butler resents his employer&#39;s libertine lifestyle and uses dark magic to take possession of his mind." />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+
+</layout>

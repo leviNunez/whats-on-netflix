@@ -5,21 +5,21 @@
     <data>
 
         <variable
-            name="newContent"
-            type="com.android.course.whatsonnetflix.domain.NewContent" />
+            name="contentPreview"
+            type="com.android.course.whatsonnetflix.domain.ContentPreview" />
 
         <variable
             name="clickListener"
-            type="com.android.course.whatsonnetflix.presentation.newcontent.NewContentAdapter.NewContentListener" />
+            type="com.android.course.whatsonnetflix.utils.ContentPreviewListener" />
     </data>
 
     <ImageView
-        imageUrl="@{newContent.img}"
+        imageUrl="@{contentPreview.img}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="@{() -> clickListener.onClick(newContent)}"
-        android:padding="4dp"
         android:adjustViewBounds="true"
+        android:onClick="@{() -> clickListener.onClick(contentPreview)}"
+        android:padding="4dp"
         tools:src="@tools:sample/backgrounds/scenic" />
 
 </layout>

@@ -6,12 +6,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".presentation.CollectionFragment">
+        tools:context=".presentation.container.ContainerFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/linear_progress_Indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:visibility="gone"
+            android:indeterminate="true"
+            tools:visibility="visible" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"

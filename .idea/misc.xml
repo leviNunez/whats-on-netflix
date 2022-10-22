@@ -6,11 +6,19 @@
         <entry key="app/src/main/res/drawable/ic_broken_image_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/loading_img.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23324275362318841" />
+        <entry key="app/src/main/res/layout/content_detail.xml" value="0.25177304964539005" />
         <entry key="app/src/main/res/layout/deleted_movie_item.xml" value="0.24048913043478262" />
         <entry key="app/src/main/res/layout/fragment_collection.xml" value="0.2164855072463768" />
+        <entry key="app/src/main/res/layout/fragment_container.xml" value="0.22962962962962963" />
+        <entry key="app/src/main/res/layout/fragment_content_detail.xml" value="0.2717973697028738" />
         <entry key="app/src/main/res/layout/fragment_contents.xml" value="0.22871376811594202" />
         <entry key="app/src/main/res/layout/fragment_deleted_content.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1413373860182371" />
+        <entry key="app/src/main/res/layout/fragment_movies.xml" value="0.22962962962962963" />
         <entry key="app/src/main/res/layout/fragment_new_content.xml" value="0.25227963525835867" />
+        <entry key="app/src/main/res/layout/fragment_new_content_detail.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_new_content_details.xml" value="0.1962962962962963" />
+        <entry key="app/src/main/res/layout/fragment_tv_shows.xml" value="0.22962962962962963" />
         <entry key="app/src/main/res/layout/grid_view_item.xml" value="0.24048913043478262" />
         <entry key="app/src/main/res/layout/linear_progress_indicator.xml" value="0.1" />
         <entry key="app/src/main/res/layout/progress_indicator.xml" value="0.1802536231884058" />

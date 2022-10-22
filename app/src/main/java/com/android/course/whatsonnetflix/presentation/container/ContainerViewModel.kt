@@ -1,46 +1,44 @@
-package com.android.course.whatsonnetflix.presentation.newcontent
+package com.android.course.whatsonnetflix.presentation.container
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.repository.ContentsRepository
+import com.android.course.whatsonnetflix.repository.ContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class NewContentViewModel @Inject constructor(private val repository: ContentsRepository) :
+class ContainerViewModel @Inject constructor(private val repository: ContentRepository) :
     ViewModel() {
 
     private val _status = MutableLiveData<ContentApiStatus>()
-
     val status: LiveData<ContentApiStatus> get() = _status
 
-    val newContents = repository.newContents
+    private val _showToastEvent = MutableLiveData<Boolean>()
+    val showToastEvent: LiveData<Boolean> get() = _showToastEvent
 
     init {
-        getNewContent()
+        getContent()
     }
 
-    private fun getNewContent() {
+    private fun getContent() {
         viewModelScope.launch {
-
             try {
                 _status.value = ContentApiStatus.LOADING
-                Timber.i("Status value: ${status.value}")
-                repository.refreshNewContents()
+                repository.refreshContent()
                 _status.value = ContentApiStatus.DONE
-                Timber.i("Status value: ${status.value}")
-            } catch (e: Exception) {
+            } catch (e: HttpException) {
                 _status.value = ContentApiStatus.ERROR
-                Timber.i("Status value: ${status.value}")
-                Timber.i("An error occurred: $e")
+                _showToastEvent.value = true
             }
-
         }
     }
 
+    fun doneShowingToast() {
+        _showToastEvent.value = false
+    }
 }
