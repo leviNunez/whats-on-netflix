@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">What\'s on Netflix</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">Search</string>
-    <string name="new_content_tab">NEW</string>
-    <string name="deleted_content_tab">DELETED</string>
+    <string name="tv_shows_tab">TV Shows</string>
+    <string name="movies_tab">Movies</string>
+    <string name="content_synopsis_text">Synopsis:</string>
+    <string name="content_year_text">Year:</string>
+    <string name="content_streaming_date_text">Streaming date:</string>
+    <string name="content_runtime_text">Runtime:</string>
+    <string name="maturity_label_text">Maturity label:</string>
+    <string name="network_error">Oops, an error occurred</string>
 </resources>

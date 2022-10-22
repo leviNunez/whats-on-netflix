@@ -1,17 +1,18 @@
 package com.android.course.whatsonnetflix.data.remote
 
-import com.android.course.whatsonnetflix.data.local.database.DatabaseNewContent
+import com.android.course.whatsonnetflix.data.local.DatabaseContent
+import com.android.course.whatsonnetflix.data.local.DatabaseContentPreview
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class NewContentResponse(
-    val Object: Map<String, Int>,
-    val results: List<NetworkNewContent>
+data class ContentResponse(
+    @Json(name = "Object") val metaData: Map<String, Int>,
+    @Json(name = "results") val contentPreviewList: List<NetworkContentPreview>
 )
 
 @JsonClass(generateAdapter = true)
-data class NetworkNewContent(
+data class NetworkContentPreview(
     @Json(name = "netflix_id") val netflixId: Long,
     val title: String,
     val img: String,
@@ -27,19 +28,53 @@ data class NetworkNewContent(
     @Json(name = "title_date") val titleDate: String
 )
 
-fun NewContentResponse.asDatabaseModel(): Array<DatabaseNewContent> {
-    return results.map {
-        DatabaseNewContent(
+fun ContentResponse.asDatabaseModel(): Array<DatabaseContentPreview> {
+    return contentPreviewList.map {
+        DatabaseContentPreview(
             netflixId = it.netflixId,
-            title = it.title,
             img = it.img,
             titleType = it.titleType,
-            synopsis = it.synopsis,
-            rating = it.rating,
-            year = it.year,
-            runtime = it.runtime,
-            poster = it.poster,
-            titleDate = it.titleDate
         )
     }.toTypedArray()
 }
+
+
+@JsonClass(generateAdapter = true)
+data class ContentDetailResponse(
+    @Json(name = "alt_id") val altId: String,
+    @Json(name = "alt_image") val altImage: String,
+    @Json(name = "alt_metascore") val altMetascore: String,
+    @Json(name = "alt_plot") val altPlot: String,
+    @Json(name = "alt_runtime") val altRuntime: String,
+    @Json(name = "alt_votes") val altVotes: String,
+    val awards: String,
+    @Json(name = "default_image") val defaultImage: String,
+    @Json(name = "large_image") val largeImage: String,
+    @Json(name = "latest_date") val latestDate: String,
+    @Json(name = "maturity_label") val maturityLabel: String,
+    @Json(name = "maturity_level") val maturityLevel: String,
+    @Json(name = "netflix_id") val netflixId: String,
+    @Json(name = "origin_country") val originCountry: String,
+    val poster: String,
+    val rating: String,
+    val runtime: String,
+    @Json(name = "start_date") val startDate: String,
+    val synopsis: String,
+    val title: String,
+    @Json(name = "title_type") val titleType: String,
+    val year: String
+)
+
+fun ContentDetailResponse.asDatabaseModel(): DatabaseContent =
+    DatabaseContent(
+        netflixId = netflixId.toLong(),
+        title = title,
+        maturityLabel = maturityLabel,
+        img = largeImage,
+        titleType = titleType,
+        synopsis = synopsis,
+        year = year,
+        runtime = altRuntime,
+        titleDate = startDate
+    )
+

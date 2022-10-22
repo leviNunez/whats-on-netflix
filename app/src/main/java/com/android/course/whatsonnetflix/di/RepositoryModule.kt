@@ -1,7 +1,7 @@
 package com.android.course.whatsonnetflix.di
 
-import com.android.course.whatsonnetflix.data.remote.repository.ContentsRepositoryImpl
-import com.android.course.whatsonnetflix.repository.ContentsRepository
+import com.android.course.whatsonnetflix.data.repository.ContentRepositoryImpl
+import com.android.course.whatsonnetflix.repository.ContentRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindMoviesRepository(
-        contentsRepositoryImpl: ContentsRepositoryImpl): ContentsRepository
+        contentsRepositoryImpl: ContentRepositoryImpl
+    ): ContentRepository
 }
