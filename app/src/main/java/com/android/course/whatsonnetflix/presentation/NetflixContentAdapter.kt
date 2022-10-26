@@ -1,4 +1,4 @@
-package com.android.course.whatsonnetflix.presentation.tvshows
+package com.android.course.whatsonnetflix.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.course.whatsonnetflix.databinding.ContentPreviewItemBinding
-import com.android.course.whatsonnetflix.domain.ContentPreview
-import com.android.course.whatsonnetflix.utils.ContentPreviewListener
+import com.android.course.whatsonnetflix.domain.NetflixContentPreview
+import com.android.course.whatsonnetflix.utils.NetflixContentPreviewListener
 
-class TvShowsAdapter(private val onClickListener: ContentPreviewListener) :
-    ListAdapter<ContentPreview, TvShowsAdapter.ViewHolder>(DiffUtilCallback()) {
+class NetflixContentAdapter(private val onClickListener: NetflixContentPreviewListener) :
+    ListAdapter<NetflixContentPreview, NetflixContentAdapter.ViewHolder>(DiffUtilCallback()) {
 
     class ViewHolder private constructor(private val binding: ContentPreviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ContentPreview, clickListener: ContentPreviewListener) {
-            binding.contentPreview = item
+        fun bind(item: NetflixContentPreview, clickListener: NetflixContentPreviewListener) {
+            binding.netflixContentPreview = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -39,12 +39,18 @@ class TvShowsAdapter(private val onClickListener: ContentPreviewListener) :
     }
 
 
-    class DiffUtilCallback : DiffUtil.ItemCallback<ContentPreview>() {
-        override fun areItemsTheSame(oldItem: ContentPreview, newItem: ContentPreview): Boolean {
+    class DiffUtilCallback : DiffUtil.ItemCallback<NetflixContentPreview>() {
+        override fun areItemsTheSame(
+            oldItem: NetflixContentPreview,
+            newItem: NetflixContentPreview
+        ): Boolean {
             return oldItem.netflixId == newItem.netflixId
         }
 
-        override fun areContentsTheSame(oldItem: ContentPreview, newItem: ContentPreview): Boolean {
+        override fun areContentsTheSame(
+            oldItem: NetflixContentPreview,
+            newItem: NetflixContentPreview
+        ): Boolean {
             return oldItem == newItem
         }
 

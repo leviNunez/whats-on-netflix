@@ -2,7 +2,7 @@ package com.android.course.whatsonnetflix.presentation.contentdetail
 
 import androidx.lifecycle.*
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.domain.Content
+import com.android.course.whatsonnetflix.domain.NetflixContent
 import com.android.course.whatsonnetflix.repository.ContentRepository
 import com.android.course.whatsonnetflix.utils.NoDataException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ class ContentDetailViewModel @Inject constructor(
     private val _status = MutableLiveData<ContentApiStatus>()
     val status: LiveData<ContentApiStatus> get() = _status
 
-    private val _content = MutableLiveData<Content>()
-    val content: LiveData<Content> get() = _content
+    private val _netflixContent = MutableLiveData<NetflixContent>()
+    val netflixContent: LiveData<NetflixContent> get() = _netflixContent
 
     private val _showToastEvent = MutableLiveData<Boolean>()
     val showToastEvent: LiveData<Boolean> get() = _showToastEvent
@@ -41,18 +41,17 @@ class ContentDetailViewModel @Inject constructor(
                     _status.value = ContentApiStatus.ERROR
                     _showToastEvent.value = true
                 } finally {
-                    getContentFromDatabse(it)
+                    getNetflixContentFromDatabase(it)
                 }
             }
         }
     }
 
-    private suspend fun getContentFromDatabse(contentId: Long) {
+    private suspend fun getNetflixContentFromDatabase(contentId: Long) {
         try {
-            _content.value = repository.findContentById(contentId)
-            Timber.i("${_content.value}")
+            _netflixContent.value = repository.findContentById(contentId)
         } catch (e: NoDataException) {
-            Timber.i("BOBO no hay datos en la base de datos")
+            Timber.i("Database content could not be found.")
         }
     }
 

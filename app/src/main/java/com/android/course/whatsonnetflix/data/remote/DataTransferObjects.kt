@@ -1,7 +1,8 @@
 package com.android.course.whatsonnetflix.data.remote
 
-import com.android.course.whatsonnetflix.data.local.DatabaseContent
-import com.android.course.whatsonnetflix.data.local.DatabaseContentPreview
+import com.android.course.whatsonnetflix.data.local.NetflixContentEntity
+import com.android.course.whatsonnetflix.data.local.NetflixContentPreviewEntity
+import com.android.course.whatsonnetflix.utils.*
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -28,12 +29,13 @@ data class NetworkContentPreview(
     @Json(name = "title_date") val titleDate: String
 )
 
-fun ContentResponse.asDatabaseModel(): Array<DatabaseContentPreview> {
+fun ContentResponse.asDatabaseModel(): Array<NetflixContentPreviewEntity> {
     return contentPreviewList.map {
-        DatabaseContentPreview(
+        NetflixContentPreviewEntity(
             netflixId = it.netflixId,
             img = it.img,
             titleType = it.titleType,
+            titleDate = it.titleDate.convertToDate(),
         )
     }.toTypedArray()
 }
@@ -65,16 +67,16 @@ data class ContentDetailResponse(
     val year: String
 )
 
-fun ContentDetailResponse.asDatabaseModel(): DatabaseContent =
-    DatabaseContent(
+fun ContentDetailResponse.asDatabaseModel(): NetflixContentEntity =
+    NetflixContentEntity(
         netflixId = netflixId.toLong(),
-        title = title,
+        title = title.decodeHtmlEntities(),
         maturityLabel = maturityLabel,
         img = largeImage,
-        titleType = titleType,
-        synopsis = synopsis,
+        titleType = appendParenthesis(titleType),
+        synopsis = synopsis.decodeHtmlEntities(),
         year = year,
-        runtime = altRuntime,
-        titleDate = startDate
+        runtime = altRuntime.convertSecondsToTime(),
+        titleDate = startDate.convertToDate()
     )
 

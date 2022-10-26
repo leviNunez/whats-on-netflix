@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_circularProgressIndicator"
+            android:id="@+id/circular_progress_indicator_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
@@ -42,50 +42,29 @@
                 tools:context=".NewContentDetailsFragment">
 
                 <LinearLayout
-                    android:id="@+id/ll_image_and_info"
+                    android:id="@+id/ll_content_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/spacer_2"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/content_image"
-                        imageUrl="@{viewModel.content.img}"
+                        imageUrl="@{viewModel.netflixContent.img}"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         tools:src="@tools:sample/avatars" />
 
                     <LinearLayout
-                        android:id="@+id/ll_content_info"
+                        android:id="@+id/ll_content_metrics"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:paddingHorizontal="@dimen/spacing_normal">
-
-                        <TextView
-                            android:id="@+id/content_title_text"
-                            style="@style/MainHeaderText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{viewModel.content.title}"
-                            tools:text="Breaking Bad" />
-
-                        <TextView
-                            android:id="@+id/content_type_text"
-                            style="@style/BodyText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:contentDetailString="@{viewModel.content.titleType}"
-                            tools:text="(Series)" />
-
-                        <Space
-                            android:id="@+id/spacer_1"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/spacer_high_normal" />
 
                         <TextView
                             android:id="@+id/content_year_text"
@@ -93,17 +72,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/content_year_text"
-                            app:contentDetailString="@{viewModel.content.year}"
+                            app:contentDetailString="@{viewModel.netflixContent.year}"
                             tools:text="Year: 2008" />
-
-                        <TextView
-                            android:id="@+id/content_runtime_text"
-                            style="@style/BodyText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/content_runtime_text"
-                            app:contentDetailString="@{viewModel.content.runtime}"
-                            tools:text="Runtime: hour-long" />
 
                         <TextView
                             android:id="@+id/content_streaming_date_text"
@@ -111,8 +81,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/content_streaming_date_text"
-                            app:contentDetailString="@{viewModel.content.titleDate}"
+                            app:contentDetailString="@{viewModel.netflixContent.titleDate.toString()}"
                             tools:text="Streaming date: 2015-04-14" />
+
+                        <TextView
+                            android:id="@+id/content_runtime_text"
+                            style="@style/BodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/content_runtime_text"
+                            app:contentDetailString="@{viewModel.netflixContent.runtime}"
+                            tools:text="Runtime: Hour-long eps." />
 
                         <TextView
                             android:id="@+id/content_maturity_label_text"
@@ -120,20 +99,43 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/maturity_label_text"
-                            app:contentDetailString="@{viewModel.content.maturityLabel}"
+                            app:contentDetailString="@{viewModel.netflixContent.maturityLabel}"
                             tools:text="Maturity label: Suitable for mature audiences only" />
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/spacer_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacer_height"
+                    app:layout_constraintTop_toBottomOf="@id/ll_content_description" />
+
+                <TextView
+                    android:id="@+id/content_title_text"
+                    style="@style/MainHeaderText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.netflixContent.title}"
+                    app:layout_constraintTop_toBottomOf="@id/spacer_1"
+                    tools:text="Breaking Bad" />
+
+                <TextView
+                    android:id="@+id/content_type_text"
+                    style="@style/BodyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentDetailString="@{viewModel.netflixContent.titleType}"
+                    app:layout_constraintTop_toBottomOf="@id/content_title_text"
+                    tools:text="(Series)" />
+
+                <Space
                     android:id="@+id/spacer_2"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacer_high_large"
-                    app:layout_constraintBottom_toTopOf="@+id/content_synopsis"
+                    android:layout_height="@dimen/spacer_height"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_image_and_info" />
+                    app:layout_constraintTop_toBottomOf="@id/content_type_text" />
 
                 <TextView
                     android:id="@+id/content_synopsis"
@@ -141,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/content_synopsis_text"
-                    app:contentDetailString="@{viewModel.content.synopsis}"
+                    app:contentDetailString="@{viewModel.netflixContent.synopsis}"
                     app:layout_constraintTop_toBottomOf="@id/spacer_2"
                     tools:text="Synopsis: In a grand country manor, a sinister butler resents his employer&#39;s libertine lifestyle and uses dark magic to take possession of his mind." />
 

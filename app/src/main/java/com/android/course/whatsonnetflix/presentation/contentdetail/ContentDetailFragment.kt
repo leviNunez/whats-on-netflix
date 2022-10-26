@@ -27,10 +27,10 @@ class ContentDetailFragment : Fragment() {
         contentDetailViewModel.status.observe(viewLifecycleOwner) {
             it?.let {
                 if (it == ContentApiStatus.LOADING) {
-                    binding.clCircularProgressIndicator.visibility = View.VISIBLE
+                    binding.circularProgressIndicatorContainer.visibility = View.VISIBLE
                     binding.scrollview.visibility = View.GONE
                 } else {
-                    binding.clCircularProgressIndicator.visibility = View.GONE
+                    binding.circularProgressIndicatorContainer.visibility = View.GONE
                     binding.scrollview.visibility = View.VISIBLE
                 }
             }
