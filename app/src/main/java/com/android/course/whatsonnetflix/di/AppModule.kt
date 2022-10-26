@@ -2,8 +2,8 @@ package com.android.course.whatsonnetflix.di
 
 import android.content.Context
 import androidx.room.Room
-import com.android.course.whatsonnetflix.data.local.ContentDao
-import com.android.course.whatsonnetflix.data.local.ContentDatabase
+import com.android.course.whatsonnetflix.data.local.NetflixContentDao
+import com.android.course.whatsonnetflix.data.local.NetflixContentDatabase
 import com.android.course.whatsonnetflix.data.remote.ContentsApi
 import com.android.course.whatsonnetflix.data.remote.NetworkInterceptor
 import com.squareup.moshi.Moshi
@@ -24,17 +24,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideContentDatabase(@ApplicationContext appContext: Context): ContentDatabase {
+    fun provideContentDatabase(@ApplicationContext appContext: Context): NetflixContentDatabase {
         return Room.databaseBuilder(
             appContext,
-            ContentDatabase::class.java,
-            "content"
+            NetflixContentDatabase::class.java,
+            "netflixContent"
         ).build()
     }
 
     @Provides
-    fun provideContentDao(contentDatabase: ContentDatabase): ContentDao {
-        return contentDatabase.contentDao()
+    fun provideContentDao(netflixContentDatabase: NetflixContentDatabase): NetflixContentDao {
+        return netflixContentDatabase.contentDao()
     }
 
     @Provides

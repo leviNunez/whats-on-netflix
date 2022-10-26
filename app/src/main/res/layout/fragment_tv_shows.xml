@@ -15,10 +15,10 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="@dimen/spacing_small"
         android:paddingTop="@dimen/spacing_small"
-        tools:context=".MainActivity">
+        tools:context=".presentation.tvshows.TvShowsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/new_content_list"
+            android:id="@+id/tv_shows_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="true"

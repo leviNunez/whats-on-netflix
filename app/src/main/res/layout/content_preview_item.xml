@@ -5,20 +5,20 @@
     <data>
 
         <variable
-            name="contentPreview"
-            type="com.android.course.whatsonnetflix.domain.ContentPreview" />
+            name="netflixContentPreview"
+            type="com.android.course.whatsonnetflix.domain.NetflixContentPreview" />
 
         <variable
             name="clickListener"
-            type="com.android.course.whatsonnetflix.utils.ContentPreviewListener" />
+            type="com.android.course.whatsonnetflix.utils.NetflixContentPreviewListener" />
     </data>
 
     <ImageView
-        imageUrl="@{contentPreview.img}"
+        imageUrl="@{netflixContentPreview.img}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:onClick="@{() -> clickListener.onClick(contentPreview)}"
+        android:onClick="@{() -> clickListener.onClick(netflixContentPreview)}"
         android:padding="4dp"
         tools:src="@tools:sample/backgrounds/scenic" />
 

@@ -9,7 +9,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class TvShowsViewModel @Inject constructor(private val repository: ContentRepository) :
+class TvShowsViewModel @Inject constructor(repository: ContentRepository) :
     ViewModel() {
 
 

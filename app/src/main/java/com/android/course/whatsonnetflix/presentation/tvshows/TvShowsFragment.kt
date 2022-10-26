@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.android.course.whatsonnetflix.databinding.FragmentTvShowsBinding
+import com.android.course.whatsonnetflix.presentation.NetflixContentAdapter
 import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
-import com.android.course.whatsonnetflix.utils.ContentPreviewListener
+import com.android.course.whatsonnetflix.utils.NetflixContentPreviewListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,11 +23,11 @@ class TvShowsFragment : Fragment() {
     ): View {
         val binding = FragmentTvShowsBinding.inflate(layoutInflater)
 
-        val adapter = TvShowsAdapter(ContentPreviewListener { contentId ->
+        val adapter = NetflixContentAdapter(NetflixContentPreviewListener { contentId ->
             tvShowsViewModel.displayContentDetails(contentId)
         })
 
-        binding.newContentList.adapter = adapter
+        binding.tvShowsList.adapter = adapter
 
         tvShowsViewModel.tvShows.observe(viewLifecycleOwner) { tvShows ->
             tvShows?.let {

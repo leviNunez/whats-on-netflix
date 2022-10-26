@@ -1,7 +1,9 @@
 package com.android.course.whatsonnetflix.domain
 
+import java.util.*
 
-data class Content(
+
+data class NetflixContent(
     val netflixId: Long,
     val title: String,
     val maturityLabel: String,
@@ -10,12 +12,13 @@ data class Content(
     val synopsis: String,
     val year: String,
     val runtime: String,
-    val titleDate: String
+    val titleDate: Date
 )
 
-data class ContentPreview(
+data class NetflixContentPreview(
     val netflixId: Long,
     val img: String,
     val titleType: String,
+    val titleDate: Date
 )
 
