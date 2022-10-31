@@ -1,7 +1,7 @@
 package com.android.course.whatsonnetflix.presentation.tvshows
 
 import androidx.lifecycle.*
-import com.android.course.whatsonnetflix.repository.NetflixContentRepository
+import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

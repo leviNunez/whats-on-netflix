@@ -2,10 +2,7 @@ package com.android.course.whatsonnetflix.domain
 
 import com.android.course.whatsonnetflix.data.local.NetflixSearchHistoryEntity
 import com.android.course.whatsonnetflix.utils.decodeHtmlEntities
-import com.android.course.whatsonnetflix.utils.getCurrentDate
-import java.time.LocalDate
 import java.util.*
-
 
 data class NetflixContent(
     val netflixId: Long,
@@ -27,12 +24,6 @@ data class NetflixContentPreview(
     val titleDate: Date
 )
 
-data class NetflixSearchHistoryItem(
-    val netflixId: Long,
-    val img: String,
-    val title: String,
-)
-
 fun NetflixContentPreview.asNetflixSearchHistoryItem(): NetflixSearchHistoryItem =
     NetflixSearchHistoryItem(
         netflixId = netflixId,
@@ -40,11 +31,22 @@ fun NetflixContentPreview.asNetflixSearchHistoryItem(): NetflixSearchHistoryItem
         title = title.decodeHtmlEntities()
     )
 
+data class NetflixSearchHistoryItem(
+    val netflixId: Long,
+    val img: String,
+    val title: String,
+)
+
 fun NetflixSearchHistoryItem.asDatabaseModel(): NetflixSearchHistoryEntity =
     NetflixSearchHistoryEntity(
         netflixId = netflixId,
         img = img,
         title = title,
-        timestamp = getCurrentDate()
+        timestamp = System.currentTimeMillis()
     )
+
+
+
+
+
 

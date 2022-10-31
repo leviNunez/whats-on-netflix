@@ -1,7 +1,6 @@
-package com.android.course.whatsonnetflix.repository
+package com.android.course.whatsonnetflix.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.android.course.whatsonnetflix.data.local.NetflixSearchHistoryEntity
 import com.android.course.whatsonnetflix.domain.NetflixContent
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem

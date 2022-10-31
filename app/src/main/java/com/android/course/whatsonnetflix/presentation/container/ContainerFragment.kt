@@ -33,9 +33,9 @@ class ContainerFragment : Fragment() {
         containerViewModel.status.observe(viewLifecycleOwner) {
             it?.let {
                 if (it == ContentApiStatus.LOADING) {
-                    binding.linearProgressIndicator.visibility = View.VISIBLE
+                    binding.containerCircularProgressIndicator.visibility = View.VISIBLE
                 } else {
-                    binding.linearProgressIndicator.visibility = View.GONE
+                    binding.containerCircularProgressIndicator.visibility = View.GONE
                 }
             }
         }

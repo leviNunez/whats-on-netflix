@@ -1,13 +1,10 @@
 package com.android.course.whatsonnetflix.data.local
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
+import androidx.room.*
 import com.android.course.whatsonnetflix.domain.NetflixContent
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
 import java.sql.Date
-import java.time.LocalDate
 
 @Entity(tableName = "netflix_content_preview_table")
 data class NetflixContentPreviewEntity(
@@ -63,7 +60,7 @@ data class NetflixSearchHistoryEntity(
     val netflixId: Long,
     val img: String,
     val title: String,
-    val timestamp: Date,
+    val timestamp: Long,
 )
 
 @JvmName("asDomainModelNetflixSearchHistoryEntity")
@@ -87,7 +84,6 @@ class Converters {
     fun dateToTimestamp(date: Date): Long {
         return date.time
     }
-
 }
 
 

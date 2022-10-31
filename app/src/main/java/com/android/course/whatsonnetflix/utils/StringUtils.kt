@@ -30,13 +30,6 @@ fun appendParenthesis(value: String): String {
     return "($value)"
 }
 
-@SuppressLint("SimpleDateFormat")
-fun getCurrentDate(): Date {
-    val c = Calendar.getInstance()
-    val sdf = SimpleDateFormat("yyyy-MM-dd")
-    val formattedTime = sdf.format(c.time)
-    return Date.valueOf(formattedTime)
-}
 
 fun String.convertSecondsToTime(): String {
     val temp = this.toLong()

@@ -27,11 +27,7 @@
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/search_progress_indicator"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="@dimen/spacing_large"
-            android:indeterminate="true"
+            style="@style/CustomCircularProgressIndicator"
             android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
