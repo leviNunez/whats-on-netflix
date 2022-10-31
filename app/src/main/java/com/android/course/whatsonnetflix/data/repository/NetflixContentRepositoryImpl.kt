@@ -11,10 +11,9 @@ import com.android.course.whatsonnetflix.domain.NetflixContent
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
 import com.android.course.whatsonnetflix.domain.asDatabaseModel
-import com.android.course.whatsonnetflix.repository.NetflixContentRepository
+import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import com.android.course.whatsonnetflix.utils.NoDataException
 import retrofit2.HttpException
-import retrofit2.Retrofit
 
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,6 +36,7 @@ class NetflixContentRepositoryImpl @Inject constructor(
 
     override val searchHistory: LiveData<List<NetflixSearchHistoryItem>> =
         Transformations.map(netflixContentDao.getNetflixSearchHistory()) {
+            Timber.i("$it")
             it.asDomainModel()
         }
 
@@ -92,7 +92,7 @@ class NetflixContentRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addNetflixSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem) {
-        netflixContentDao.insertSearchHistoryItem(searchHistoryItem.asDatabaseModel())
+        netflixContentDao.insertNetflixSearchHistoryItem(searchHistoryItem.asDatabaseModel())
     }
 
     override suspend fun deleteSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem) {

@@ -10,16 +10,15 @@ import com.squareup.moshi.*
 data class NetflixContentPreviewResponse(
     @Json(name = "Object") val metaData: Map<String, Int>,
     @NullToEmptyList
-    @Json(name = "results") val contentPreviewList: List<NetworkContentPreview>
+    @Json(name = "results") val contentPreviewList: List<NetworkNetflixContentPreview>
 )
 
 @JsonClass(generateAdapter = true)
-data class NetworkContentPreview(
+data class NetworkNetflixContentPreview(
     @Json(name = "netflix_id") val netflixId: Long,
     val img: String,
     @Json(name = "title_type") val titleType: String,
     @Json(name = "title_date") val titleDate: String,
-
     val title: String,
     val synopsis: String,
     val rating: String,
@@ -55,7 +54,6 @@ fun NetflixContentPreviewResponse.asDomainModel(): List<NetflixContentPreview> {
     }
 }
 
-
 @JsonClass(generateAdapter = true)
 data class NetflixContentDetailResponse(
     @Json(name = "netflix_id") val netflixId: String,
@@ -67,7 +65,6 @@ data class NetflixContentDetailResponse(
     val year: String,
     @Json(name = "alt_runtime") val altRuntime: String,
     @Json(name = "start_date") val startDate: String,
-
     val alt_id: String,
     val alt_image: String,
     val alt_metascore: String,
@@ -102,13 +99,13 @@ annotation class NullToEmptyList
 
 class NullToEmptyListAdapter {
     @ToJson
-    fun toJson(@NullToEmptyList value: List<NetworkContentPreview>): List<NetworkContentPreview> {
+    fun toJson(@NullToEmptyList value: List<NetworkNetflixContentPreview>): List<NetworkNetflixContentPreview> {
         return value
     }
 
     @FromJson
     @NullToEmptyList
-    fun fromJson(@javax.annotation.Nullable data: List<NetworkContentPreview>?): List<NetworkContentPreview> {
+    fun fromJson(@javax.annotation.Nullable data: List<NetworkNetflixContentPreview>?): List<NetworkNetflixContentPreview> {
         return data ?: listOf()
     }
 }

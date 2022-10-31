@@ -19,17 +19,27 @@
     </style>
 
 
-    <style name="MainTitleText" parent="TextAppearance.AppCompat">
+    <style name="CustomHeadline1" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textSize">@dimen/big_text</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="SubtitleText" parent="TextAppearance.AppCompat">
+    <style name="CustomHeadline2" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
 
-    <style name="BodyText" parent="TextAppearance.AppCompat">
+    <style name="CustomHeadline3" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
+    <style name="CustomCircularProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/spacing_large</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_large</item>
+    </style>
+
 
 </resources>

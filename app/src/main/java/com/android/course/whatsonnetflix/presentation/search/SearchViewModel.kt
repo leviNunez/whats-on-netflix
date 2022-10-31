@@ -8,11 +8,10 @@ import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
 import com.android.course.whatsonnetflix.domain.asNetflixSearchHistoryItem
-import com.android.course.whatsonnetflix.repository.NetflixContentRepository
+import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import retrofit2.HttpException
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

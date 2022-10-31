@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.repository.NetflixContentRepository
+import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

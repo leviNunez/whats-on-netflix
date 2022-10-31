@@ -1,7 +1,7 @@
 package com.android.course.whatsonnetflix.di
 
 import com.android.course.whatsonnetflix.data.repository.NetflixContentRepositoryImpl
-import com.android.course.whatsonnetflix.repository.NetflixContentRepository
+import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

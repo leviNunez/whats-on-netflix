@@ -3,7 +3,7 @@ package com.android.course.whatsonnetflix.presentation.contentdetail
 import androidx.lifecycle.*
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.domain.NetflixContent
-import com.android.course.whatsonnetflix.repository.NetflixContentRepository
+import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import com.android.course.whatsonnetflix.utils.NoDataException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -8,9 +8,14 @@ import retrofit2.http.Query
 
 enum class ContentApiStatus { LOADING, ERROR, DONE }
 
+/*
+    78 is the Netflix's id for the United States.
+ */
+private const val DEFAULT_COUNTRY = "78"
+
 interface ContentsApi {
 
-    @GET("search/titles?order_by=date")
+    @GET("search/titles?order_by=date&country_list=$DEFAULT_COUNTRY")
     suspend fun getNetflixContent(): Response<NetflixContentPreviewResponse>
 
     @GET("title/details")
@@ -18,7 +23,7 @@ interface ContentsApi {
         @Query("netflix_id") type: Long
     ): Response<NetflixContentDetailResponse>
 
-    @GET("search/titles?order_by=title")
+    @GET("search/titles?order_by=title&country_list=$DEFAULT_COUNTRY")
     suspend fun getNetflixContentByTitle(
         @Query("title") type: String
     ): Response<NetflixContentPreviewResponse>
