@@ -6,6 +6,7 @@ import com.android.course.whatsonnetflix.data.local.NetflixContentDao
 import com.android.course.whatsonnetflix.data.local.NetflixContentDatabase
 import com.android.course.whatsonnetflix.data.remote.ContentsApi
 import com.android.course.whatsonnetflix.data.remote.NetworkInterceptor
+import com.android.course.whatsonnetflix.data.remote.NullToEmptyListAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -41,6 +42,7 @@ object AppModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
+            .add(NullToEmptyListAdapter())
             .add(KotlinJsonAdapterFactory())
             .build()
     }

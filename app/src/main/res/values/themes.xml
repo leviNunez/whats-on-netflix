@@ -19,16 +19,17 @@
     </style>
 
 
-    <style name="MainHeaderText" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/header_text_size</item>
+    <style name="MainTitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/big_text</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="SubHeaderText" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/subheader_text_size</item>
+    <style name="SubtitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/medium_text</item>
     </style>
 
     <style name="BodyText" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:textSize">@dimen/small_text</item>
     </style>
+
 </resources>

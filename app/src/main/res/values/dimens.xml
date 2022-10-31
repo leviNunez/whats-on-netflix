@@ -3,8 +3,8 @@
     <dimen name="spacing_small">4dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="spacing_large">16dp</dimen>
-    <dimen name="header_text_size">24sp</dimen>
-    <dimen name="subheader_text_size">18sp</dimen>
-    <dimen name="body_text_size">16sp</dimen>
+    <dimen name="big_text">24sp</dimen>
+    <dimen name="medium_text">18sp</dimen>
+    <dimen name="small_text">16sp</dimen>
     <dimen name="spacer_height">10dp</dimen>
 </resources>

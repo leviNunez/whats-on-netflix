@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.presentation.search.SearchViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_small"
+        tools:context=".presentation.search.SearchFragment">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:queryHint="@string/search_hint" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/search_progress_indicator"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/spacing_large"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_lists_space"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/spacing_normal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_history_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:recyclerViewItemSpacer="@{@dimen/spacing_small}"
+                app:showOnlyWhenNull="@{viewModel.searchResults}"
+                tools:itemCount="16"
+                tools:listitem="@layout/netflix_search_history_item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_results_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="true"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showOnlyWhenNotNullOrEmpty="@{viewModel.searchResults}"
+                app:spanCount="3"
+                tools:itemCount="16"
+                tools:listitem="@layout/netflix_content_preview_item" />
+
+            <TextView
+                android:id="@+id/search_no_results_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{viewModel.searchQuery}"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showOnlyWhenEmpty="@{viewModel.searchResults}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

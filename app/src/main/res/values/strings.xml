@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">What\'s on Netflix</string>
-    <string name="action_search">Search</string>
+    <string name="search_hint">Search by title</string>
+    <string name="action_search_title">Search</string>
     <string name="tv_shows_tab">TV Shows</string>
     <string name="movies_tab">Movies</string>
     <string name="content_synopsis_text">Synopsis:</string>
@@ -10,4 +11,5 @@
     <string name="tv_shows_runtime">Typically 24–60+ minutes per episode</string>
     <string name="maturity_label_text">Maturity label:</string>
     <string name="network_error">Oops, an error occurred</string>
+    <string name="search_no_results_found">We could not find any results for %s.</string>
 </resources>

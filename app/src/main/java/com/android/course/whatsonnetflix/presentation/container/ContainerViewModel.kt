@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.repository.ContentRepository
+import com.android.course.whatsonnetflix.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class ContainerViewModel @Inject constructor(private val repository: ContentRepository) :
+class ContainerViewModel @Inject constructor(private val repository: NetflixContentRepository) :
     ViewModel() {
 
     private val _status = MutableLiveData<ContentApiStatus>()
@@ -29,7 +29,7 @@ class ContainerViewModel @Inject constructor(private val repository: ContentRepo
         viewModelScope.launch {
             try {
                 _status.value = ContentApiStatus.LOADING
-                repository.refreshContent()
+                repository.refreshNetflixContent()
                 _status.value = ContentApiStatus.DONE
             } catch (e: HttpException) {
                 _status.value = ContentApiStatus.ERROR

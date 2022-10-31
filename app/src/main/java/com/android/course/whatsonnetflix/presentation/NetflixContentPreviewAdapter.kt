@@ -5,14 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.course.whatsonnetflix.databinding.ContentPreviewItemBinding
+import com.android.course.whatsonnetflix.databinding.NetflixContentPreviewItemBinding
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
-import com.android.course.whatsonnetflix.utils.NetflixContentPreviewListener
 
-class NetflixContentAdapter(private val onClickListener: NetflixContentPreviewListener) :
-    ListAdapter<NetflixContentPreview, NetflixContentAdapter.ViewHolder>(DiffUtilCallback()) {
+class NetflixContentPreviewAdapter(private val onClickListener: NetflixContentPreviewListener) :
+    ListAdapter<NetflixContentPreview, NetflixContentPreviewAdapter.ViewHolder>(DiffUtilCallback()) {
 
-    class ViewHolder private constructor(private val binding: ContentPreviewItemBinding) :
+    class ViewHolder private constructor(private val binding: NetflixContentPreviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NetflixContentPreview, clickListener: NetflixContentPreviewListener) {
             binding.netflixContentPreview = item
@@ -23,7 +22,7 @@ class NetflixContentAdapter(private val onClickListener: NetflixContentPreviewLi
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ContentPreviewItemBinding.inflate(layoutInflater)
+                val binding = NetflixContentPreviewItemBinding.inflate(layoutInflater)
                 return ViewHolder(binding)
             }
         }
@@ -37,7 +36,6 @@ class NetflixContentAdapter(private val onClickListener: NetflixContentPreviewLi
         val item = getItem(position)
         holder.bind(item, onClickListener)
     }
-
 
     class DiffUtilCallback : DiffUtil.ItemCallback<NetflixContentPreview>() {
         override fun areItemsTheSame(
@@ -55,8 +53,11 @@ class NetflixContentAdapter(private val onClickListener: NetflixContentPreviewLi
         }
 
     }
+}
 
-
+class NetflixContentPreviewListener(val clickListener: (netflixContentPreview: NetflixContentPreview) -> Unit) {
+    fun onClick(netflixContentPreview: NetflixContentPreview) =
+        clickListener(netflixContentPreview)
 }
 
 

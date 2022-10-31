@@ -1,15 +1,12 @@
 package com.android.course.whatsonnetflix.presentation.tvshows
 
 import androidx.lifecycle.*
-import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.repository.ContentRepository
+import com.android.course.whatsonnetflix.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class TvShowsViewModel @Inject constructor(repository: ContentRepository) :
+class TvShowsViewModel @Inject constructor(repository: NetflixContentRepository) :
     ViewModel() {
 
 

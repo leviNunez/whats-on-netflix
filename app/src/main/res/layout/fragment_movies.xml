@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="3"
             tools:itemCount="16"
-            tools:listitem="@layout/content_preview_item" />
+            tools:listitem="@layout/netflix_content_preview_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -98,6 +98,8 @@
                             style="@style/BodyText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:maxLines="8"
+                            android:ellipsize="end"
                             android:text="@string/maturity_label_text"
                             app:contentDetailString="@{viewModel.netflixContent.maturityLabel}"
                             tools:text="Maturity label: Suitable for mature audiences only" />
@@ -113,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/content_title_text"
-                    style="@style/MainHeaderText"
+                    style="@style/MainTitleText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.netflixContent.title}"
@@ -139,7 +141,7 @@
 
                 <TextView
                     android:id="@+id/content_synopsis"
-                    style="@style/SubHeaderText"
+                    style="@style/SubtitleText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/content_synopsis_text"

@@ -5,30 +5,33 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.android.course.whatsonnetflix.domain.NetflixContent
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
+import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
 import java.sql.Date
+import java.time.LocalDate
 
-@Entity(tableName = "content_preview_table")
+@Entity(tableName = "netflix_content_preview_table")
 data class NetflixContentPreviewEntity(
     @PrimaryKey
     val netflixId: Long,
     val img: String,
+    val title: String,
     val titleType: String,
     val titleDate: Date,
 )
-
 
 fun List<NetflixContentPreviewEntity>.asDomainModel(): List<NetflixContentPreview> {
     return map {
         NetflixContentPreview(
             netflixId = it.netflixId,
             img = it.img,
+            title = it.title,
             titleType = it.titleType,
             titleDate = it.titleDate
         )
     }
 }
 
-@Entity(tableName = "content_detail_table")
+@Entity(tableName = "netflix_content_detail_table")
 data class NetflixContentEntity(
     @PrimaryKey
     val netflixId: Long,
@@ -54,6 +57,26 @@ fun NetflixContentEntity.asDomainModel(): NetflixContent = NetflixContent(
     titleDate = titleDate
 )
 
+@Entity(tableName = "netflix_search_history_table")
+data class NetflixSearchHistoryEntity(
+    @PrimaryKey
+    val netflixId: Long,
+    val img: String,
+    val title: String,
+    val timestamp: Date,
+)
+
+@JvmName("asDomainModelNetflixSearchHistoryEntity")
+fun List<NetflixSearchHistoryEntity>.asDomainModel(): List<NetflixSearchHistoryItem> {
+    return map {
+        NetflixSearchHistoryItem(
+            netflixId = it.netflixId,
+            img = it.img,
+            title = it.title,
+        )
+    }
+}
+
 class Converters {
     @TypeConverter
     fun fromTimestamp(value: Long): Date {
@@ -64,6 +87,7 @@ class Converters {
     fun dateToTimestamp(date: Date): Long {
         return date.time
     }
+
 }
 
 
