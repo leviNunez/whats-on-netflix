@@ -10,7 +10,7 @@
 
         <variable
             name="clickListener"
-            type="com.android.course.whatsonnetflix.utils.NetflixContentPreviewListener" />
+            type="com.android.course.whatsonnetflix.presentation.NetflixContentPreviewListener" />
     </data>
 
     <ImageView

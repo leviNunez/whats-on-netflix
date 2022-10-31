@@ -3,12 +3,17 @@ package com.android.course.whatsonnetflix.presentation.container
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.databinding.FragmentContainerBinding
+import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +52,8 @@ class ContainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMenu()
+
         containerPagerAdapter = HomePagerAdapter(this)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = containerPagerAdapter
@@ -60,6 +67,29 @@ class ContainerFragment : Fragment() {
             tab.text = tabsTitle[position]
         }.attach()
 
+    }
+
+    private fun setupMenu() {
+        val menuHost = requireActivity() as MenuHost
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.action_bar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_search -> {
+                        val navController = findNavController()
+                        navController.navigate(
+                            ContainerFragmentDirections.actionContainerFragmentToSearchFragment()
+                        )
+                        true
+                    }
+                    else -> false
+
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
 

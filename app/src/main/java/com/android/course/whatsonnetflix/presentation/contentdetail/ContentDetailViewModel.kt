@@ -3,7 +3,7 @@ package com.android.course.whatsonnetflix.presentation.contentdetail
 import androidx.lifecycle.*
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.domain.NetflixContent
-import com.android.course.whatsonnetflix.repository.ContentRepository
+import com.android.course.whatsonnetflix.repository.NetflixContentRepository
 import com.android.course.whatsonnetflix.utils.NoDataException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContentDetailViewModel @Inject constructor(
-    private val repository: ContentRepository,
+    private val repository: NetflixContentRepository,
     private val state: SavedStateHandle
 ) : ViewModel() {
 
@@ -35,7 +35,7 @@ class ContentDetailViewModel @Inject constructor(
             state.get<Long>("contentId")?.let {
                 try {
                     _status.value = ContentApiStatus.LOADING
-                    repository.getContentDetail(it)
+                    repository.getNetflixContentDetail(it)
                     _status.value = ContentApiStatus.DONE
                 } catch (e: HttpException) {
                     _status.value = ContentApiStatus.ERROR
@@ -49,7 +49,7 @@ class ContentDetailViewModel @Inject constructor(
 
     private suspend fun getNetflixContentFromDatabase(contentId: Long) {
         try {
-            _netflixContent.value = repository.findContentById(contentId)
+            _netflixContent.value = repository.findNetflixContentById(contentId)
         } catch (e: NoDataException) {
             Timber.i("Database content could not be found.")
         }

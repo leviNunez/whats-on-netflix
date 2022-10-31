@@ -1,15 +1,16 @@
 package com.android.course.whatsonnetflix.utils
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.TextUtils
 import android.text.style.StyleSpan
-import com.android.course.whatsonnetflix.R
 import java.sql.Date
 import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 fun formatNetflixContentDetailText(title: String, subtitle: String): SpannableString {
@@ -27,6 +28,14 @@ fun formatNetflixContentDetailText(title: String, subtitle: String): SpannableSt
 
 fun appendParenthesis(value: String): String {
     return "($value)"
+}
+
+@SuppressLint("SimpleDateFormat")
+fun getCurrentDate(): Date {
+    val c = Calendar.getInstance()
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    val formattedTime = sdf.format(c.time)
+    return Date.valueOf(formattedTime)
 }
 
 fun String.convertSecondsToTime(): String {

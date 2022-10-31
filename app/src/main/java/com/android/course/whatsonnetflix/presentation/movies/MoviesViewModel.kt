@@ -3,12 +3,12 @@ package com.android.course.whatsonnetflix.presentation.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.course.whatsonnetflix.repository.ContentRepository
+import com.android.course.whatsonnetflix.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel @Inject constructor(repository: ContentRepository) :
+class MoviesViewModel @Inject constructor(repository: NetflixContentRepository) :
     ViewModel() {
 
     val movies = repository.movies

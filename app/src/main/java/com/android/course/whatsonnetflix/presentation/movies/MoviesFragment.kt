@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.android.course.whatsonnetflix.databinding.FragmentMoviesBinding
 import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
-import com.android.course.whatsonnetflix.presentation.NetflixContentAdapter
-import com.android.course.whatsonnetflix.utils.NetflixContentPreviewListener
+import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewAdapter
+import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +24,8 @@ class MoviesFragment : Fragment() {
     ): View {
         val binding = FragmentMoviesBinding.inflate(layoutInflater)
 
-        val adapter = NetflixContentAdapter(NetflixContentPreviewListener { contentId ->
-            moviesViewModel.displayContentDetails(contentId)
+        val adapter = NetflixContentPreviewAdapter(NetflixContentPreviewListener {
+            moviesViewModel.displayContentDetails(it.netflixId)
         })
 
         binding.moviesList.adapter = adapter
@@ -40,7 +40,7 @@ class MoviesFragment : Fragment() {
             contentId?.let {
                 val navController = findNavController()
                 navController.navigate(
-                    ContentDetailFragmentDirections.actionGlobalContentDetailFragment2(
+                    ContentDetailFragmentDirections.actionGlobalContentDetailFragment(
                         it
                     )
                 )

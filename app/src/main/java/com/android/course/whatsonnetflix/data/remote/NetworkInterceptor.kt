@@ -19,7 +19,7 @@ class NetworkInterceptor : Interceptor {
                 .build()
             chain.proceed(requestWithHeaders)
         } catch (e: Exception) {
-            Timber.e("Interceptor error: $e")
+            Timber.i("Interceptor error: $e")
             Response.Builder()
                 .request(request)
                 .protocol(Protocol.HTTP_1_1)

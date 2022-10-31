@@ -2,72 +2,88 @@ package com.android.course.whatsonnetflix.data.remote
 
 import com.android.course.whatsonnetflix.data.local.NetflixContentEntity
 import com.android.course.whatsonnetflix.data.local.NetflixContentPreviewEntity
+import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.utils.*
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.squareup.moshi.*
 
 @JsonClass(generateAdapter = true)
-data class ContentResponse(
+data class NetflixContentPreviewResponse(
     @Json(name = "Object") val metaData: Map<String, Int>,
+    @NullToEmptyList
     @Json(name = "results") val contentPreviewList: List<NetworkContentPreview>
 )
 
 @JsonClass(generateAdapter = true)
 data class NetworkContentPreview(
     @Json(name = "netflix_id") val netflixId: Long,
-    val title: String,
     val img: String,
     @Json(name = "title_type") val titleType: String,
+    @Json(name = "title_date") val titleDate: String,
+
+    val title: String,
     val synopsis: String,
     val rating: String,
     val year: String,
     val runtime: String,
-    @Json(name = "imdb_id") val imdbId: String,
+    val imdb_id: String,
     val poster: String,
     val top250: Int,
-    val top250tv: Int,
-    @Json(name = "title_date") val titleDate: String
+    val top250tv: Int
 )
 
-fun ContentResponse.asDatabaseModel(): Array<NetflixContentPreviewEntity> {
+fun NetflixContentPreviewResponse.asDatabaseModel(): Array<NetflixContentPreviewEntity> {
     return contentPreviewList.map {
         NetflixContentPreviewEntity(
             netflixId = it.netflixId,
             img = it.img,
+            title = it.title,
             titleType = it.titleType,
             titleDate = it.titleDate.convertToDate(),
         )
     }.toTypedArray()
 }
 
+fun NetflixContentPreviewResponse.asDomainModel(): List<NetflixContentPreview> {
+    return contentPreviewList.map {
+        NetflixContentPreview(
+            netflixId = it.netflixId,
+            img = it.img,
+            title = it.title,
+            titleType = it.titleType,
+            titleDate = it.titleDate.convertToDate(),
+        )
+    }
+}
+
 
 @JsonClass(generateAdapter = true)
-data class ContentDetailResponse(
-    @Json(name = "alt_id") val altId: String,
-    @Json(name = "alt_image") val altImage: String,
-    @Json(name = "alt_metascore") val altMetascore: String,
-    @Json(name = "alt_plot") val altPlot: String,
-    @Json(name = "alt_runtime") val altRuntime: String,
-    @Json(name = "alt_votes") val altVotes: String,
-    val awards: String,
-    @Json(name = "default_image") val defaultImage: String,
-    @Json(name = "large_image") val largeImage: String,
-    @Json(name = "latest_date") val latestDate: String,
-    @Json(name = "maturity_label") val maturityLabel: String,
-    @Json(name = "maturity_level") val maturityLevel: String,
+data class NetflixContentDetailResponse(
     @Json(name = "netflix_id") val netflixId: String,
-    @Json(name = "origin_country") val originCountry: String,
+    val title: String,
+    @Json(name = "maturity_label") val maturityLabel: String,
+    @Json(name = "large_image") val largeImage: String,
+    @Json(name = "title_type") val titleType: String,
+    val synopsis: String,
+    val year: String,
+    @Json(name = "alt_runtime") val altRuntime: String,
+    @Json(name = "start_date") val startDate: String,
+
+    val alt_id: String,
+    val alt_image: String,
+    val alt_metascore: String,
+    val alt_plot: String,
+    val alt_votes: String,
+    val awards: String,
+    val default_image: String,
+    val latest_date: String,
+    val maturity_level: String,
+    val origin_country: String,
     val poster: String,
     val rating: String,
     val runtime: String,
-    @Json(name = "start_date") val startDate: String,
-    val synopsis: String,
-    val title: String,
-    @Json(name = "title_type") val titleType: String,
-    val year: String
 )
 
-fun ContentDetailResponse.asDatabaseModel(): NetflixContentEntity =
+fun NetflixContentDetailResponse.asDatabaseModel(): NetflixContentEntity =
     NetflixContentEntity(
         netflixId = netflixId.toLong(),
         title = title.decodeHtmlEntities(),
@@ -80,3 +96,19 @@ fun ContentDetailResponse.asDatabaseModel(): NetflixContentEntity =
         titleDate = startDate.convertToDate()
     )
 
+@Retention(AnnotationRetention.RUNTIME)
+@JsonQualifier
+annotation class NullToEmptyList
+
+class NullToEmptyListAdapter {
+    @ToJson
+    fun toJson(@NullToEmptyList value: List<NetworkContentPreview>): List<NetworkContentPreview> {
+        return value
+    }
+
+    @FromJson
+    @NullToEmptyList
+    fun fromJson(@javax.annotation.Nullable data: List<NetworkContentPreview>?): List<NetworkContentPreview> {
+        return data ?: listOf()
+    }
+}
