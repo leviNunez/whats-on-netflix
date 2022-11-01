@@ -42,8 +42,8 @@ class NetflixContentRepositoryImpl @Inject constructor(
 
 
     @Throws(HttpException::class)
-    override suspend fun refreshNetflixContent() {
-        val response = api.getNetflixContent()
+    override suspend fun refreshNetflixContent(type: String) {
+        val response = api.getNetflixContent(type)
         if (response.isSuccessful) {
             response.body()?.let {
                 netflixContentDao.insertAll(*it.asDatabaseModel())

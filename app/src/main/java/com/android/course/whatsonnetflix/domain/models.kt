@@ -4,6 +4,11 @@ import com.android.course.whatsonnetflix.data.local.NetflixSearchHistoryEntity
 import com.android.course.whatsonnetflix.utils.decodeHtmlEntities
 import java.util.*
 
+enum class NetflixContentType {
+    SERIES,
+    MOVIE
+}
+
 data class NetflixContent(
     val netflixId: Long,
     val title: String,

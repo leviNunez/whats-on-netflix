@@ -10,11 +10,16 @@ interface NetflixContentRepository {
     val movies: LiveData<List<NetflixContentPreview>>
     val searchHistory: LiveData<List<NetflixSearchHistoryItem>>
 
-    suspend fun refreshNetflixContent()
+    suspend fun refreshNetflixContent(type: String)
+
     suspend fun getNetflixContentDetail(contentId: Long)
+
     suspend fun getNetflixContentByTitle(contentTitle: String): List<NetflixContentPreview>
+
     suspend fun addNetflixSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem)
+
     suspend fun deleteSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem)
+
     suspend fun findNetflixContentById(contentId: Long): NetflixContent
 
 }

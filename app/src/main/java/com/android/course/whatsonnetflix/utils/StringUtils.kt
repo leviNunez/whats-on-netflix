@@ -1,6 +1,5 @@
 package com.android.course.whatsonnetflix.utils
 
-import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Build
 import android.text.Html
@@ -9,8 +8,6 @@ import android.text.SpannableString
 import android.text.style.StyleSpan
 import java.sql.Date
 import java.sql.Time
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 fun formatNetflixContentDetailText(title: String, subtitle: String): SpannableString {
