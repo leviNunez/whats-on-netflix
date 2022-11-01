@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.android.course.whatsonnetflix.R
+import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.databinding.FragmentMoviesBinding
 import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewAdapter
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewListener
+import com.android.course.whatsonnetflix.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +40,11 @@ class MoviesFragment : Fragment() {
             }
         }
 
+        binding.moviesSwipeRefresh.setOnRefreshListener {
+            moviesViewModel.refreshContent()
+            binding.moviesSwipeRefresh.isRefreshing = false
+        }
+
         moviesViewModel.navigateToSelectedContent.observe(viewLifecycleOwner) { contentId ->
             contentId?.let {
                 val navController = findNavController()
@@ -45,6 +54,13 @@ class MoviesFragment : Fragment() {
                     )
                 )
                 moviesViewModel.doneNavigating()
+            }
+        }
+
+        moviesViewModel.showToastEvent.observe(viewLifecycleOwner) { shouldShowToast ->
+            if (shouldShowToast) {
+                showToast(requireContext(), R.string.network_error_feed)
+                moviesViewModel.doneShowingToast()
             }
         }
 

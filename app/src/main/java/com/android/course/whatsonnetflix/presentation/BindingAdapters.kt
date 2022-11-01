@@ -8,11 +8,13 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.android.course.whatsonnetflix.R
+import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.utils.ItemBottomSpacer
 import com.android.course.whatsonnetflix.utils.formatNetflixContentDetailText
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import timber.log.Timber
 
 @BindingAdapter("imageUrl")
@@ -24,6 +26,17 @@ fun setImageUrl(imageView: ImageView, url: String?) {
                 .error(R.drawable.ic_broken_image_24dp)
         ).into(imageView)
 
+    }
+}
+
+@BindingAdapter("netflixContentApiStatus")
+fun bindStatusToLinearProgressBar(view: LinearProgressIndicator, status: ContentApiStatus?) {
+    status?.let {
+        when (it) {
+            ContentApiStatus.LOADING -> view.visibility =
+                View.VISIBLE
+            else -> view.visibility = View.GONE
+        }
     }
 }
 

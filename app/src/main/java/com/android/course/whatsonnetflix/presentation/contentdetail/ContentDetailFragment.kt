@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
@@ -39,7 +38,7 @@ class ContentDetailFragment : Fragment() {
         contentDetailViewModel.showToastEvent.observe(viewLifecycleOwner) {
             if (it) {
                 Timber.i("Showing Toast")
-                Toast.makeText(activity, getString(R.string.network_error), Toast.LENGTH_LONG)
+                Toast.makeText(activity, getString(R.string.network_error_feed), Toast.LENGTH_LONG)
                     .show()
                 contentDetailViewModel.doneShowingToast()
             }
