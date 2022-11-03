@@ -24,8 +24,8 @@
         <ImageView
             android:id="@+id/search_history_item_image"
             imageUrl="@{netflixSearchHistoryItem.img}"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/search_history_item_size"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:onClick="@{() -> clickListener.onClick(netflixSearchHistoryItem)}"
             android:scaleType="center"
@@ -35,7 +35,6 @@
 
         <TextView
             android:id="@+id/search_history_item_title"
-            android:textSize="@dimen/medium_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
@@ -44,6 +43,7 @@
             android:maxLines="2"
             android:onClick="@{() -> clickListener.onClick(netflixSearchHistoryItem)}"
             android:text="@{netflixSearchHistoryItem.title}"
+            android:textSize="@dimen/medium_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/delete_history_item_image"
             app:layout_constraintStart_toEndOf="@id/search_history_item_image"
@@ -53,8 +53,8 @@
             android:id="@+id/delete_history_item_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_normal"
             android:onClick="@{() -> clickListener.onDelete(netflixSearchHistoryItem)}"
+            android:paddingHorizontal="@dimen/spacing_normal"
             android:src="@drawable/ic_close_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

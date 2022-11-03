@@ -1,8 +1,7 @@
-package com.android.course.whatsonnetflix.presentation.tvshows
+package com.android.course.whatsonnetflix.presentation.series
 
 import androidx.lifecycle.*
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.domain.NetflixContentType
 import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,10 +10,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class TvShowsViewModel @Inject constructor(private val repository: NetflixContentRepository) :
+class SeriesViewModel @Inject constructor(private val repository: NetflixContentRepository) :
     ViewModel() {
 
-    val tvShows = repository.tvShows
+    val series = repository.series
 
     private val _status = MutableLiveData<ContentApiStatus>()
     val status: LiveData<ContentApiStatus> get() = _status
@@ -34,7 +33,7 @@ class TvShowsViewModel @Inject constructor(private val repository: NetflixConten
         viewModelScope.launch {
             try {
                 _status.value = ContentApiStatus.LOADING
-                repository.refreshNetflixContent(NetflixContentType.SERIES.name)
+                repository.refreshNetflixContent(TITLE_TYPE)
                 _status.value = ContentApiStatus.DONE
             } catch (e: HttpException) {
                 _status.value = ContentApiStatus.ERROR
@@ -57,5 +56,7 @@ class TvShowsViewModel @Inject constructor(private val repository: NetflixConten
     }
 
 }
+
+private const val TITLE_TYPE = "series"
 
 

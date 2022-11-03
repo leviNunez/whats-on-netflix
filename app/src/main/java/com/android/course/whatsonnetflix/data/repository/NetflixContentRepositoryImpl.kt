@@ -24,7 +24,8 @@ class NetflixContentRepositoryImpl @Inject constructor(
     private val netflixContentDao: NetflixContentDao,
 ) : NetflixContentRepository {
 
-    override val tvShows: LiveData<List<NetflixContentPreview>> =
+
+    override val series: LiveData<List<NetflixContentPreview>> =
         Transformations.map(netflixContentDao.getTvShows()) {
             it.asDomainModel()
         }
@@ -41,12 +42,11 @@ class NetflixContentRepositoryImpl @Inject constructor(
         }
 
 
-    @Throws(HttpException::class)
-    override suspend fun refreshNetflixContent(type: String) {
-        val response = api.getNetflixContent(type)
+    override suspend fun refreshNetflixContent(titleType: String) {
+        val response = api.getNetflixContent(titleType)
         if (response.isSuccessful) {
             response.body()?.let {
-                netflixContentDao.insertAll(*it.asDatabaseModel())
+                netflixContentDao.insertAll(it.asDatabaseModel())
             }
         } else {
             throw HttpException(response)
@@ -54,7 +54,6 @@ class NetflixContentRepositoryImpl @Inject constructor(
 
     }
 
-    @Throws(HttpException::class)
     override suspend fun getNetflixContentDetail(contentId: Long) {
         val response = api.getNetflixContentDetail(contentId)
         if (response.isSuccessful) {
@@ -67,13 +66,10 @@ class NetflixContentRepositoryImpl @Inject constructor(
 
     }
 
-    @Throws(HttpException::class)
     override suspend fun getNetflixContentByTitle(contentTitle: String)
             : List<NetflixContentPreview> {
-        Timber.i("Making HTTP call...")
         val response = api.getNetflixContentByTitle(contentTitle)
         if (response.isSuccessful) {
-            Timber.i("HTTP call was successful. The title was $contentTitle and the response body is ${response.body()}")
             response.body()?.let {
                 return it.asDomainModel()
             }
@@ -81,7 +77,6 @@ class NetflixContentRepositoryImpl @Inject constructor(
         throw HttpException(response)
     }
 
-    @Throws(NoDataException::class)
     override suspend fun findNetflixContentById(contentId: Long): NetflixContent {
         val netflixContent = netflixContentDao.getNetflixContentById(contentId)
         if (netflixContent == null) {
@@ -91,8 +86,8 @@ class NetflixContentRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addNetflixSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem) {
-        netflixContentDao.insertNetflixSearchHistoryItem(searchHistoryItem.asDatabaseModel())
+    override suspend fun addNetflixSearchHistoryItemToDb(netflixSearchHistoryItem: NetflixSearchHistoryItem) {
+        netflixContentDao.insertNetflixSearchHistoryItem(netflixSearchHistoryItem.asDatabaseModel())
     }
 
     override suspend fun deleteSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem) {

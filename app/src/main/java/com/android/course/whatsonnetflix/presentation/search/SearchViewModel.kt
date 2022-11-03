@@ -38,6 +38,14 @@ class SearchViewModel @Inject constructor(private val repository: NetflixContent
     private val _navigateToSelectedContent = MutableLiveData<Long?>()
     val navigateToSelectedContent: LiveData<Long?> get() = _navigateToSelectedContent
 
+    val isSearchResultsEmpty: Boolean
+        get() {
+            searchResults.value?.let {
+                return it.isEmpty()
+            }
+            return false
+        }
+
 
     fun handleSearch(query: String) {
         job.cancel()
@@ -80,7 +88,7 @@ class SearchViewModel @Inject constructor(private val repository: NetflixContent
 
     private fun addSearchHistoryItemToDatabase(item: NetflixSearchHistoryItem) {
         viewModelScope.launch {
-            repository.addNetflixSearchHistoryItem(item)
+            repository.addNetflixSearchHistoryItemToDb(item)
         }
     }
 

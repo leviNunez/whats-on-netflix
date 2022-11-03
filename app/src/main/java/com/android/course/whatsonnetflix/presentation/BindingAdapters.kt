@@ -29,8 +29,8 @@ fun setImageUrl(imageView: ImageView, url: String?) {
     }
 }
 
-@BindingAdapter("netflixContentApiStatus")
-fun bindStatusToLinearProgressBar(view: LinearProgressIndicator, status: ContentApiStatus?) {
+@BindingAdapter("apiStatus")
+fun bindStatusToView(view: View, status: ContentApiStatus?) {
     status?.let {
         when (it) {
             ContentApiStatus.LOADING -> view.visibility =
@@ -63,29 +63,15 @@ fun View.showOnlyWhenNotNullOrEmpty(
     data: LiveData<List<NetflixContentPreview>?>,
 ) {
     visibility = when {
-        !data.value.isNullOrEmpty() -> {
-            View.VISIBLE
+        data.value.isNullOrEmpty() -> {
+            View.GONE
         }
-        else -> View.GONE
-    }
-}
-
-@BindingAdapter("showOnlyWhenEmpty")
-fun TextView.showOnlyWhenEmpty(data: LiveData<List<NetflixContentPreview>?>) {
-    data.value?.let {
-        when {
-            it.isEmpty() -> {
-                val searchQuery = "\"$text\""
-                visibility = View.VISIBLE
-                text = context.getString(R.string.search_no_results_found, searchQuery)
-            }
-            else -> visibility = View.GONE
-        }
+        else -> View.VISIBLE
     }
 }
 
 @BindingAdapter("recyclerViewItemSpacer")
-fun RecyclerView.bindItemDecorator(spaceBottom: Float) {
+fun RecyclerView.bindItemDecoratorToRecyclerView(spaceBottom: Float) {
     addItemDecoration(ItemBottomSpacer(spaceBottom.toInt()))
 }
 

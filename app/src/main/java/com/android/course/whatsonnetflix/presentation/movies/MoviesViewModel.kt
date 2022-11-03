@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.domain.NetflixContentType
 import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -37,7 +36,7 @@ class MoviesViewModel @Inject constructor(private val repository: NetflixContent
         viewModelScope.launch {
             try {
                 _status.value = ContentApiStatus.LOADING
-                repository.refreshNetflixContent(NetflixContentType.MOVIE.name)
+                repository.refreshNetflixContent(TITLE_TYPE)
                 _status.value = ContentApiStatus.DONE
                 Timber.i("Finished refreshing content!")
             } catch (e: HttpException) {
@@ -61,3 +60,5 @@ class MoviesViewModel @Inject constructor(private val repository: NetflixContent
     }
 
 }
+
+private const val TITLE_TYPE = "movie"

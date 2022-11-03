@@ -32,16 +32,16 @@ class ContentDetailViewModel @Inject constructor(
 
     private fun getContentDetail() {
         viewModelScope.launch {
-            state.get<Long>("contentId")?.let {
+            state.get<Long>(NETFLIX_CONTENT_ID)?.let { netflixId ->
                 try {
                     _status.value = ContentApiStatus.LOADING
-                    repository.getNetflixContentDetail(it)
+                    repository.getNetflixContentDetail(netflixId)
                     _status.value = ContentApiStatus.DONE
                 } catch (e: HttpException) {
                     _status.value = ContentApiStatus.ERROR
                     _showToastEvent.value = true
                 } finally {
-                    getNetflixContentFromDatabase(it)
+                    getNetflixContentFromDatabase(netflixId)
                 }
             }
         }
@@ -60,3 +60,5 @@ class ContentDetailViewModel @Inject constructor(
     }
 
 }
+
+private const val NETFLIX_CONTENT_ID = "contentId"

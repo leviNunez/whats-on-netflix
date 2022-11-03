@@ -37,13 +37,12 @@ class ContainerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMenu()
-
         containerPagerAdapter = HomePagerAdapter(this)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = containerPagerAdapter
 
         val tabLayout = binding.tabLayout
-        val tabsTitles = listOf(getString(R.string.tv_shows_tab), getString(R.string.movies_tab))
+        val tabsTitles = listOf(getString(R.string.series_tab), getString(R.string.movies_tab))
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabsTitles[position]
         }.attach()
@@ -51,26 +50,20 @@ class ContainerFragment : Fragment() {
     }
 
     private fun setupMenu() {
-        val menuHost = requireActivity() as MenuHost
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.action_bar_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.action_search -> {
-                        val navController = findNavController()
-                        navController.navigate(
-                            ContainerFragmentDirections.actionContainerFragmentToSearchFragment()
-                        )
-                        true
-                    }
-                    else -> false
-
+        binding.containerToolbar.inflateMenu(R.menu.action_bar_menu)
+        binding.containerToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_search -> {
+                    val navController = findNavController()
+                    navController.navigate(
+                        ContainerFragmentDirections.actionContainerFragmentToSearchFragment()
+                    )
+                    true
                 }
+                else -> false
+
             }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        }
     }
 
 }

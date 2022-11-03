@@ -30,7 +30,7 @@ data class NetworkNetflixContentPreview(
     val top250tv: Int
 )
 
-fun NetflixContentPreviewResponse.asDatabaseModel(): Array<NetflixContentPreviewEntity> {
+fun NetflixContentPreviewResponse.asDatabaseModel(): List<NetflixContentPreviewEntity> {
     return contentPreviewList.map {
         NetflixContentPreviewEntity(
             netflixId = it.netflixId,
@@ -39,7 +39,7 @@ fun NetflixContentPreviewResponse.asDatabaseModel(): Array<NetflixContentPreview
             titleType = it.titleType,
             titleDate = it.titleDate.convertToDate(),
         )
-    }.toTypedArray()
+    }
 }
 
 fun NetflixContentPreviewResponse.asDomainModel(): List<NetflixContentPreview> {

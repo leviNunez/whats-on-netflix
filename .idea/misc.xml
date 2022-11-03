@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_grey_border_bottom.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_grey_borders.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_arrow_back_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_broken_image_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_close_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/loading_img.xml" value="0.1" />

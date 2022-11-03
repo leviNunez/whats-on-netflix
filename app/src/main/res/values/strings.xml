@@ -2,7 +2,7 @@
     <string name="app_name">What\'s on Netflix</string>
     <string name="search_hint">Search by title</string>
     <string name="action_search_title">Search</string>
-    <string name="tv_shows_tab">TV Shows</string>
+    <string name="series_tab">Series</string>
     <string name="movies_tab">Movies</string>
     <string name="content_synopsis_text">Synopsis:</string>
     <string name="content_year_text">Year:</string>
@@ -12,5 +12,6 @@
     <string name="maturity_label_text">Maturity label:</string>
     <string name="network_error_feed">Couldn\'t refresh feed</string>
     <string name="network_error_content_detail">Couldn\'t load content</string>
-    <string name="search_no_results_found">We couldn\'t find any results for %s.</string>
+    <string name="searching_for_query">Searching for \"%s\"…</string>
+    <string name="search_no_results_found">We couldn\'t find any results for \"%s\"</string>
 </resources>

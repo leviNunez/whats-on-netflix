@@ -6,17 +6,17 @@ import com.android.course.whatsonnetflix.domain.NetflixContentPreview
 import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
 
 interface NetflixContentRepository {
-    val tvShows: LiveData<List<NetflixContentPreview>>
+    val series: LiveData<List<NetflixContentPreview>>
     val movies: LiveData<List<NetflixContentPreview>>
     val searchHistory: LiveData<List<NetflixSearchHistoryItem>>
 
-    suspend fun refreshNetflixContent(type: String)
+    suspend fun refreshNetflixContent(titleType: String)
 
     suspend fun getNetflixContentDetail(contentId: Long)
 
     suspend fun getNetflixContentByTitle(contentTitle: String): List<NetflixContentPreview>
 
-    suspend fun addNetflixSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem)
+    suspend fun addNetflixSearchHistoryItemToDb(netflixSearchHistoryItem: NetflixSearchHistoryItem)
 
     suspend fun deleteSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem)
 

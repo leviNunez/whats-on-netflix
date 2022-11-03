@@ -1,23 +1,21 @@
 package com.android.course.whatsonnetflix.presentation.search
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.databinding.FragmentSearchBinding
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewAdapter
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewListener
 import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
+import com.android.course.whatsonnetflix.utils.scrollToTopOfList
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import timber.log.Timber
+
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -28,7 +26,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Timber.i("Fragment view is being created")
+
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
         val netflixContentPreviewAdapter =
@@ -48,15 +46,28 @@ class SearchFragment : Fragment() {
 
         searchViewModel.status.observe(viewLifecycleOwner) { status ->
             status?.let {
+                val query = searchViewModel.searchQuery.value
                 when (it) {
                     ContentApiStatus.LOADING -> {
-                        binding.searchProgressIndicator.visibility = View.VISIBLE
-                        binding.clListsSpace.visibility = View.GONE
+                        binding.flSearchLists.visibility = View.GONE
+                        binding.searchQueryText.visibility = View.VISIBLE
+                        binding.searchQueryText.text =
+                            getString(R.string.searching_for_query, query)
                     }
-                    else -> {
-                        binding.searchProgressIndicator.visibility = View.GONE
-                        binding.clListsSpace.visibility = View.VISIBLE
-                        scrollToTop()
+                    ContentApiStatus.DONE -> {
+                        if (searchViewModel.isSearchResultsEmpty) {
+                            binding.flSearchLists.visibility = View.GONE
+                            binding.searchQueryText.visibility = View.VISIBLE
+                            binding.searchQueryText.text =
+                                getString(R.string.search_no_results_found, query)
+                        } else {
+                            binding.flSearchLists.visibility = View.VISIBLE
+                            binding.searchQueryText.visibility = View.GONE
+                        }
+                    }
+                    ContentApiStatus.ERROR -> {
+                        binding.flSearchLists.visibility = View.GONE
+                        binding.searchQueryText.visibility = View.VISIBLE
                     }
                 }
             }
@@ -66,6 +77,7 @@ class SearchFragment : Fragment() {
         searchViewModel.searchResults.observe(viewLifecycleOwner) { searchResults ->
             searchResults?.let {
                 netflixContentPreviewAdapter.submitList(it)
+                binding.searchResultsList.scrollToTopOfList(viewLifecycleOwner.lifecycleScope)
             }
         }
 
@@ -74,7 +86,6 @@ class SearchFragment : Fragment() {
                 searchHistoryAdapterAdapter.submitList(it)
             }
         }
-
 
         searchViewModel.navigateToSelectedContent.observe(viewLifecycleOwner) { netflixSearchHistoryItem ->
             netflixSearchHistoryItem?.let {
@@ -85,23 +96,36 @@ class SearchFragment : Fragment() {
                     )
                 )
                 searchViewModel.doneNavigating()
-
-
             }
         }
-
 
         binding.viewModel = searchViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.searchToolbar.apply {
+            setNavigationIcon(R.drawable.ic_arrow_back_24)
+            setNavigationOnClickListener {
+                requireActivity().onBackPressed()
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        val searchView: androidx.appcompat.widget.SearchView = binding.searchView
-        searchView.requestFocus()
+        setupQueryTextListener()
+    }
+
+    private fun setupQueryTextListener() {
+        val searchView: SearchView = binding.searchView
+        searchView.isIconified = false
+        searchView.setIconifiedByDefault(false)
+
         searchView.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     searchViewModel.handleSearch(it)
@@ -117,12 +141,4 @@ class SearchFragment : Fragment() {
             }
         })
     }
-
-    private fun scrollToTop() {
-        lifecycleScope.launch {
-            delay(100)
-            binding.searchResultsList.scrollToPosition(0)
-        }
-    }
-
 }
