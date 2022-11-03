@@ -15,9 +15,8 @@
     </style>
 
     <style name="ToolbarColoredBackArrow" parent="Theme.WhatsOnNetflix">
-        <item name="android:textColorSecondary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/design_default_color_surface</item>
     </style>
-
 
     <style name="CustomHeadline1" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textSize">@dimen/big_text</item>

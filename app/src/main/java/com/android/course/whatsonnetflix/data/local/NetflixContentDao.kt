@@ -10,7 +10,7 @@ private const val COL_MOVIE = "movie"
 @Dao
 interface NetflixContentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg netflixContentPreview: NetflixContentPreviewEntity)
+    suspend fun insertAll(netflixContentPreview: List<NetflixContentPreviewEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNetflixContent(netflixContent: NetflixContentEntity)

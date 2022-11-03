@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:visibility="gone"
-            app:netflixContentApiStatus="@{viewModel.status}"
+            app:apiStatus="@{viewModel.status}"
             tools:visibility="visible" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

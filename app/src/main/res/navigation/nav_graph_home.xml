@@ -14,13 +14,13 @@
             app:destination="@id/searchFragment" />
     </fragment>
     <fragment
-        android:id="@+id/tvShowsFragment"
-        android:name="com.android.course.whatsonnetflix.presentation.tvshows.TvShowsFragment"
-        android:label="NewContentFragment" />
+        android:id="@+id/seriesFragment"
+        android:name="com.android.course.whatsonnetflix.presentation.series.SeriesFragment"
+        android:label="SeriesFragment" />
     <fragment
-        android:id="@+id/deletedContentFragment"
+        android:id="@+id/moviesFragment"
         android:name="com.android.course.whatsonnetflix.presentation.movies.MoviesFragment"
-        android:label="fragment_deleted_content"
+        android:label="MoviesFragment"
         tools:layout="@layout/fragment_movies" />
     <fragment
         android:id="@+id/contentDetailFragment"

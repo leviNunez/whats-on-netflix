@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.android.course.whatsonnetflix.presentation.tvshows.TvShowsViewModel" />
+            type="com.android.course.whatsonnetflix.presentation.series.SeriesViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,24 +16,24 @@
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/spacing_small"
         android:paddingTop="@dimen/spacing_small"
-        tools:context=".presentation.tvshows.TvShowsFragment">
+        tools:context=".presentation.series.SeriesFragment">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/tv_shows_linear_progress_indicator"
+            android:id="@+id/series_linear_progress_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            app:netflixContentApiStatus="@{viewModel.status}"
+            app:apiStatus="@{viewModel.status}"
             android:visibility="gone"
             tools:visibility="visible" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/tv_shows_swipe_refresh"
+            android:id="@+id/series_swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tv_shows_list"
+                android:id="@+id/series_list"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clipToPadding="true"

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
@@ -14,6 +15,7 @@ import com.android.course.whatsonnetflix.databinding.FragmentMoviesBinding
 import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewAdapter
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewListener
+import com.android.course.whatsonnetflix.utils.scrollToTopOfList
 import com.android.course.whatsonnetflix.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +39,7 @@ class MoviesFragment : Fragment() {
         moviesViewModel.movies.observe(viewLifecycleOwner) { movies ->
             movies?.let {
                 adapter.submitList(it)
+                binding.moviesList.scrollToTopOfList(viewLifecycleOwner.lifecycleScope)
             }
         }
 

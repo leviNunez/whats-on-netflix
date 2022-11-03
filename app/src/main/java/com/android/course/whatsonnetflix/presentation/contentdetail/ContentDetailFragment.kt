@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
 import com.android.course.whatsonnetflix.databinding.FragmentContentDetailBinding
+import com.android.course.whatsonnetflix.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -21,25 +22,30 @@ class ContentDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val actionBar = requireActivity().actionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayShowHomeEnabled(true)
         val binding = FragmentContentDetailBinding.inflate(layoutInflater)
 
-        contentDetailViewModel.status.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it == ContentApiStatus.LOADING) {
-                    binding.circularProgressIndicatorContainer.visibility = View.VISIBLE
-                    binding.scrollview.visibility = View.GONE
-                } else {
-                    binding.circularProgressIndicatorContainer.visibility = View.GONE
-                    binding.scrollview.visibility = View.VISIBLE
+        contentDetailViewModel.status.observe(viewLifecycleOwner) { status ->
+            status?.let {
+                when (it) {
+                    ContentApiStatus.LOADING -> {
+                        binding.circularProgressIndicatorContainer.visibility = View.VISIBLE
+                        binding.scrollview.visibility = View.GONE
+                    }
+                    else -> {
+                        binding.circularProgressIndicatorContainer.visibility = View.GONE
+                        binding.scrollview.visibility = View.VISIBLE
+                    }
                 }
             }
         }
 
-        contentDetailViewModel.showToastEvent.observe(viewLifecycleOwner) {
-            if (it) {
-                Timber.i("Showing Toast")
-                Toast.makeText(activity, getString(R.string.network_error_feed), Toast.LENGTH_LONG)
-                    .show()
+        contentDetailViewModel.showToastEvent.observe(viewLifecycleOwner) { shouldShowToast ->
+            if (shouldShowToast) {
+                showToast(requireContext(), R.string.network_error_content_detail)
                 contentDetailViewModel.doneShowingToast()
             }
         }
@@ -48,5 +54,7 @@ class ContentDetailFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
+
+
 
 }

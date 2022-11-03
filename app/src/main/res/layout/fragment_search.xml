@@ -18,34 +18,46 @@
         android:paddingHorizontal="@dimen/spacing_small"
         tools:context=".presentation.search.SearchFragment">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/search_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="@dimen/spacing_small"
+            app:title="@string/app_name"
+            app:titleTextColor="?attr/colorOnPrimary">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="@dimen/spacing_small"
+                android:background="@drawable/bg_search_rounded_borders"
+                android:textSize="@dimen/small_text"
+                app:queryHint="@string/search_hint" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/search_query_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryHint="@string/search_hint" />
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/search_progress_indicator"
-            style="@style/CustomCircularProgressIndicator"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
             android:visibility="gone" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_lists_space"
+        <FrameLayout
+            android:id="@+id/fl_search_lists"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/spacing_normal">
+            android:layout_marginTop="@dimen/spacing_large">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_history_list"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:clipToPadding="true"
+                android:paddingBottom="@dimen/spacing_small"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:recyclerViewItemSpacer="@{@dimen/spacing_small}"
                 app:showOnlyWhenNull="@{viewModel.searchResults}"
                 tools:itemCount="16"
@@ -53,33 +65,18 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_results_list"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:clipToPadding="true"
+                android:paddingBottom="@dimen/spacing_small"
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:showOnlyWhenNotNullOrEmpty="@{viewModel.searchResults}"
                 app:spanCount="3"
                 tools:itemCount="16"
                 tools:listitem="@layout/netflix_content_preview_item" />
 
-            <TextView
-                android:id="@+id/search_no_results_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@{viewModel.searchQuery}"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:showOnlyWhenEmpty="@{viewModel.searchResults}" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </FrameLayout>
 
     </LinearLayout>
 

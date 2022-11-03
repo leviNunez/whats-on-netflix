@@ -1,50 +1,49 @@
-package com.android.course.whatsonnetflix.presentation.tvshows
+package com.android.course.whatsonnetflix.presentation.series
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.android.course.whatsonnetflix.R
-import com.android.course.whatsonnetflix.data.remote.ContentApiStatus
-import com.android.course.whatsonnetflix.databinding.FragmentTvShowsBinding
+import com.android.course.whatsonnetflix.databinding.FragmentSeriesBinding
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewAdapter
 import com.android.course.whatsonnetflix.presentation.NetflixContentPreviewListener
 import com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailFragmentDirections
+import com.android.course.whatsonnetflix.utils.scrollToTopOfList
 import com.android.course.whatsonnetflix.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
-class TvShowsFragment : Fragment() {
+class SeriesFragment : Fragment() {
 
-    private val tvShowsViewModel: TvShowsViewModel by viewModels()
+    private val seriesViewModel: SeriesViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentTvShowsBinding.inflate(layoutInflater)
+        val binding = FragmentSeriesBinding.inflate(layoutInflater)
 
         val adapter = NetflixContentPreviewAdapter(NetflixContentPreviewListener {
-            tvShowsViewModel.displayContentDetails(it.netflixId)
+            seriesViewModel.displayContentDetails(it.netflixId)
         })
 
-        binding.tvShowsList.adapter = adapter
+        binding.seriesList.adapter = adapter
 
-        tvShowsViewModel.tvShows.observe(viewLifecycleOwner) { tvShows ->
+        seriesViewModel.series.observe(viewLifecycleOwner) { tvShows ->
             tvShows?.let {
                 adapter.submitList(it)
+                binding.seriesList.scrollToTopOfList(viewLifecycleOwner.lifecycleScope)
             }
         }
 
-        binding.tvShowsSwipeRefresh.setOnRefreshListener {
-            tvShowsViewModel.refreshContent()
-            binding.tvShowsSwipeRefresh.isRefreshing = false
+        binding.seriesSwipeRefresh.setOnRefreshListener {
+            seriesViewModel.refreshContent()
+            binding.seriesSwipeRefresh.isRefreshing = false
         }
 
-        tvShowsViewModel.navigateToSelectedContent.observe(viewLifecycleOwner) { contentId ->
+        seriesViewModel.navigateToSelectedContent.observe(viewLifecycleOwner) { contentId ->
             contentId?.let {
                 val navController = findNavController()
                 navController.navigate(
@@ -52,19 +51,19 @@ class TvShowsFragment : Fragment() {
                         it
                     )
                 )
-                tvShowsViewModel.doneNavigating()
+                seriesViewModel.doneNavigating()
             }
         }
 
-        tvShowsViewModel.showToastEvent.observe(viewLifecycleOwner) { shouldShowToast ->
+        seriesViewModel.showToastEvent.observe(viewLifecycleOwner) { shouldShowToast ->
             if (shouldShowToast) {
                 showToast(requireContext(), R.string.network_error_feed)
-                tvShowsViewModel.doneShowingToast()
+                seriesViewModel.doneShowingToast()
             }
         }
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = tvShowsViewModel
+        binding.viewModel = seriesViewModel
         return binding.root
     }
 

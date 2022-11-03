@@ -13,15 +13,12 @@ enum class ContentApiStatus { LOADING, ERROR, DONE }
  */
 private const val DEFAULT_COUNTRY = "78"
 
-private const val DEFAULT_LIMIT = "20"
-
 interface ContentsApi {
 
-    @GET("search/titles?limit=$DEFAULT_LIMIT&order_by=date&country_list=$DEFAULT_COUNTRY")
+    @GET("search/titles?order_by=date&country_list=$DEFAULT_COUNTRY")
     suspend fun getNetflixContent(
-        @Query("type") type: String
+        @Query("type") titleType: String
     ): Response<NetflixContentPreviewResponse>
-
 
     @GET("title/details")
     suspend fun getNetflixContentDetail(
