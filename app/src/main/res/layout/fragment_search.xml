@@ -30,6 +30,7 @@
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                app:queryBackground="@android:color/transparent"
                 android:layout_marginHorizontal="@dimen/spacing_small"
                 android:background="@drawable/bg_search_rounded_borders"
                 android:textSize="@dimen/small_text"
