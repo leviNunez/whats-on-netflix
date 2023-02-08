@@ -1,34 +1,35 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.WhatsOnNetflix" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
         <item name="colorOnPrimary">@color/primaryTextColor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/chrome</item>
     </style>
 
-    <style name="ToolbarColoredBackArrow" parent="Theme.WhatsOnNetflix">
-        <item name="android:textColorSecondary">@color/design_default_color_surface</item>
-    </style>
 
     <style name="CustomHeadline1" parent="TextAppearance.AppCompat.Headline">
-        <item name="android:textSize">@dimen/big_text</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="CustomHeadline2" parent="TextAppearance.AppCompat.Headline">
-        <item name="android:textSize">@dimen/medium_text</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="CustomHeadline3" parent="TextAppearance.AppCompat.Headline">
-        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="CustomCircularProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
@@ -36,8 +37,18 @@
         <item name="android:layout_width">50dp</item>
         <item name="android:indeterminate">true</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:layout_marginTop">@dimen/spacing_large</item>
-        <item name="android:layout_marginBottom">@dimen/spacing_large</item>
+        <item name="indicatorColor">@color/secondaryColor</item>
+    </style>
+
+    <style name="roundedCornersImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4%</item>
+    </style>
+
+    <style name="redButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_rounded_corners_btn</item>
+        <item name="backgroundTint">@color/secondaryColor</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 
 

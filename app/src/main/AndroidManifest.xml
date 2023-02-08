@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.android.course.whatsonnetflix">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.android.course.whatsonnetflix.WhatsOnNetflixApp"
+        android:name=".WhatsOnNetflixApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,8 +17,17 @@
         android:theme="@style/Theme.WhatsOnNetflix"
         tools:targetApi="31">
         <activity
-            android:name="com.android.course.whatsonnetflix.MainActivity"
-            android:exported="true">
+            android:name=".SearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,25 +1,19 @@
 package com.android.course.whatsonnetflix.domain.repository
 
-import androidx.lifecycle.LiveData
-import com.android.course.whatsonnetflix.domain.NetflixContent
-import com.android.course.whatsonnetflix.domain.NetflixContentPreview
-import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
+import com.android.course.whatsonnetflix.data.remote.Result
+import com.android.course.whatsonnetflix.domain.CategoryModel
+import com.android.course.whatsonnetflix.domain.NetflixItemModel
+import com.android.course.whatsonnetflix.domain.RegionModel
+import kotlinx.coroutines.flow.Flow
 
 interface NetflixContentRepository {
-    val series: LiveData<List<NetflixContentPreview>>
-    val movies: LiveData<List<NetflixContentPreview>>
-    val searchHistory: LiveData<List<NetflixSearchHistoryItem>>
+    val categories: Flow<List<CategoryModel>>
 
-    suspend fun refreshNetflixContent(titleType: String)
+    suspend fun getAllRegions(): Result<List<RegionModel>>
 
-    suspend fun getNetflixContentDetail(contentId: Long)
+    suspend fun refreshAllCategories(regionCode: String): Result<List<Long>>
 
-    suspend fun getNetflixContentByTitle(contentTitle: String): List<NetflixContentPreview>
+    suspend fun getCategoryByTitle(title: String): CategoryModel
 
-    suspend fun addNetflixSearchHistoryItemToDb(netflixSearchHistoryItem: NetflixSearchHistoryItem)
-
-    suspend fun deleteSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem)
-
-    suspend fun findNetflixContentById(contentId: Long): NetflixContent
-
+    suspend fun getContentByTitle(title: String): Result<List<NetflixItemModel>>
 }

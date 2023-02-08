@@ -7,150 +7,142 @@
 
         <variable
             name="viewModel"
-            type="com.android.course.whatsonnetflix.presentation.contentdetail.ContentDetailViewModel" />
+            type="com.android.course.whatsonnetflix.viewmodel.ContentDetailViewModel" />
     </data>
 
-    <FrameLayout
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/spacing_normal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/circular_progress_indicator_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                style="@style/CustomCircularProgressIndicator"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/poster_iv"
+                android:layout_width="@dimen/content_detail_image_width"
+                android:layout_height="@dimen/content_detail_image_height"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/spacing_large"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                app:netflixItemPoster="@{viewModel.netflixItem}"
+                app:shapeAppearanceOverlay="@style/roundedCornersImage"
+                tools:src="@drawable/thumbnail" />
 
-        <ScrollView
-            android:id="@+id/scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/title_tv"
+                style="@style/CustomHeadline1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_large"
-                tools:context=".NewContentDetailsFragment">
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginBottom="@dimen/spacing_normal"
+                android:text="@{viewModel.netflixItem.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/poster_iv"
+                tools:text="Breaking Bad" />
 
-                <LinearLayout
-                    android:id="@+id/ll_content_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/content_image"
-                        imageUrl="@{viewModel.netflixContent.img}"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        tools:src="@tools:sample/avatars" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_content_metrics"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="@dimen/spacing_normal">
-
-                        <TextView
-                            android:id="@+id/content_year_text"
-                            style="@style/CustomHeadline3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/content_year_text"
-                            app:contentDetailString="@{viewModel.netflixContent.year}"
-                            tools:text="Year: 2008" />
-
-                        <TextView
-                            android:id="@+id/content_streaming_date_text"
-                            style="@style/CustomHeadline3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/content_streaming_date_text"
-                            app:contentDetailString="@{viewModel.netflixContent.titleDate.toString()}"
-                            tools:text="Streaming date: 2015-04-14" />
-
-                        <TextView
-                            android:id="@+id/content_runtime_text"
-                            style="@style/CustomHeadline3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/content_runtime_text"
-                            app:contentDetailString="@{viewModel.netflixContent.runtime}"
-                            tools:text="Runtime: Hour-long eps." />
-
-                        <TextView
-                            android:id="@+id/content_maturity_label_text"
-                            style="@style/CustomHeadline3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="8"
-                            android:text="@string/maturity_label_text"
-                            app:contentDetailString="@{viewModel.netflixContent.maturityLabel}"
-                            tools:text="Maturity label: Suitable for mature audiences only" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <Space
-                    android:id="@+id/spacer_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacer_height"
-                    app:layout_constraintTop_toBottomOf="@id/ll_content_description" />
+            <LinearLayout
+                android:id="@+id/properties_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_small"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_tv">
 
                 <TextView
-                    android:id="@+id/content_title_text"
-                    style="@style/CustomHeadline1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/year_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.netflixContent.title}"
-                    app:layout_constraintTop_toBottomOf="@id/spacer_1"
-                    tools:text="Breaking Bad" />
+                    android:paddingEnd="@dimen/spacing_large"
+                    android:text="@{viewModel.netflixItem.year}"
+                    android:textSize="@dimen/normal_text_size"
+                    tools:text="2022" />
 
                 <TextView
-                    android:id="@+id/content_type_text"
-                    android:layout_width="match_parent"
+                    android:id="@+id/type_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/small_text"
-                    app:contentDetailString="@{viewModel.netflixContent.titleType}"
-                    app:layout_constraintTop_toBottomOf="@id/content_title_text"
-                    tools:text="(Series)" />
-
-                <Space
-                    android:id="@+id/spacer_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacer_height"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/content_type_text" />
+                    android:paddingEnd="@dimen/spacing_large"
+                    android:textSize="@dimen/normal_text_size"
+                    app:netflixItemTitleType="@{viewModel.netflixItem.titleType}"
+                    tools:text="Movie" />
 
                 <TextView
-                    android:id="@+id/content_synopsis"
-                    style="@style/CustomHeadline2"
-                    android:layout_width="match_parent"
+                    android:id="@+id/runtime_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/content_synopsis_text"
-                    app:contentDetailString="@{viewModel.netflixContent.synopsis}"
-                    app:layout_constraintTop_toBottomOf="@id/spacer_2"
-                    tools:text="Synopsis: In a grand country manor, a sinister butler resents his employer&#39;s libertine lifestyle and uses dark magic to take possession of his mind." />
+                    android:paddingEnd="@dimen/spacing_large"
+                    android:textSize="@dimen/normal_text_size"
+                    app:netflixItemRuntime="@{viewModel.netflixItem.runtime}"
+                    tools:text="1h 49m" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+                <ImageView
+                    android:id="@+id/hd_icon_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/hd_icon"
+                    android:src="@drawable/ic_hd_24" />
+            </LinearLayout>
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/synopsis_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_large"
+                android:lineSpacingExtra="@dimen/spacing_small"
+                android:text="@{viewModel.netflixItem.synopsis}"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintTop_toBottomOf="@id/properties_ll"
+                tools:text="In a grand country manor, a sinister butler resents his employer's libertine lifestyle and uses dark magic to take possession of his mind." />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/synopsis_tv" />
+
+            <TextView
+                android:id="@+id/more_like_this_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="@string/more_like_this_text"
+                style="@style/CustomHeadline3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/more_like_this_rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/spacing_normal"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/more_like_this_tv"
+                app:spanCount="3"
+                tools:itemCount="12"
+                tools:listitem="@layout/netflix_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </layout>

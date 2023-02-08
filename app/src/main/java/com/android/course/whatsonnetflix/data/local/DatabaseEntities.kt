@@ -1,82 +1,93 @@
 package com.android.course.whatsonnetflix.data.local
 
 import androidx.room.*
-import com.android.course.whatsonnetflix.domain.NetflixContent
-import com.android.course.whatsonnetflix.domain.NetflixContentPreview
-import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
+import com.android.course.whatsonnetflix.domain.CategoryModel
+import com.android.course.whatsonnetflix.domain.NetflixItemModel
+import com.android.course.whatsonnetflix.domain.SearchHistoryModel
+import com.google.gson.Gson
 import java.sql.Date
 
-@Entity(tableName = "netflix_content_preview_table")
-data class NetflixContentPreviewEntity(
-    @PrimaryKey
-    val netflixId: Long,
-    val img: String,
+
+@Entity(tableName = "category_table")
+data class CategoryEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val title: String,
-    val titleType: String,
-    val titleDate: Date,
+    val netflixItemList: NetflixItemList
 )
 
-fun List<NetflixContentPreviewEntity>.asDomainModel(): List<NetflixContentPreview> {
-    return map {
-        NetflixContentPreview(
-            netflixId = it.netflixId,
-            img = it.img,
-            title = it.title,
-            titleType = it.titleType,
-            titleDate = it.titleDate
-        )
-    }
-}
+data class NetflixItemList(
+    val items: List<NetflixItemEntity>
+)
 
-@Entity(tableName = "netflix_content_detail_table")
-data class NetflixContentEntity(
-    @PrimaryKey
+data class NetflixItemEntity(
     val netflixId: Long,
     val title: String,
-    val maturityLabel: String,
-    val img: String,
+    val thumbnail: String,
+    val poster: String,
     val titleType: String,
     val synopsis: String,
     val year: String,
     val runtime: String,
-    val titleDate: Date
+    val streamingDate: Date,
+    val isExpiring: Boolean
 )
 
-fun NetflixContentEntity.asDomainModel(): NetflixContent = NetflixContent(
-    netflixId = netflixId,
-    title = title,
-    maturityLabel = maturityLabel,
-    img = img,
-    titleType = titleType,
-    synopsis = synopsis,
-    year = year,
-    runtime = runtime,
-    titleDate = titleDate
-)
-
-@Entity(tableName = "netflix_search_history_table")
-data class NetflixSearchHistoryEntity(
-    @PrimaryKey
-    val netflixId: Long,
-    val img: String,
-    val title: String,
-    val timestamp: Long,
-)
-
-@JvmName("asDomainModelNetflixSearchHistoryEntity")
-fun List<NetflixSearchHistoryEntity>.asDomainModel(): List<NetflixSearchHistoryItem> {
-    return map {
-        NetflixSearchHistoryItem(
-            netflixId = it.netflixId,
-            img = it.img,
-            title = it.title,
+fun List<CategoryEntity>.asCategoryModel(): List<CategoryModel> =
+    map { entity ->
+        CategoryModel(
+            id = entity.id,
+            title = entity.title,
+            netflixItemList = entity.netflixItemList.items.asNetflixItemModel()
         )
     }
-}
+
+fun List<NetflixItemEntity>.asNetflixItemModel(): List<NetflixItemModel> =
+    map { entity ->
+        NetflixItemModel(
+            netflixId = entity.netflixId,
+            title = entity.title,
+            thumbnail = entity.thumbnail,
+            poster = entity.poster,
+            titleType = entity.titleType,
+            synopsis = entity.synopsis,
+            year = entity.year,
+            runtime = entity.runtime,
+            streamingDate = entity.streamingDate,
+            isExpiring = entity.isExpiring
+        )
+    }
+
+fun CategoryEntity.asCategoryModel(): CategoryModel =
+    CategoryModel(
+        id = id,
+        title = title,
+        netflixItemList = netflixItemList.items.asNetflixItemModel()
+    )
+
+
+@Entity(
+    tableName = "search_history_table",
+    indices = [Index(value = ["search_term"], unique = true)]
+)
+data class SearchHistoryEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
+    @ColumnInfo(name = "search_term") val searchTerm: String,
+    val timeStamp: Long,
+)
+
+fun List<SearchHistoryEntity>.asDomainModel(): List<SearchHistoryModel> =
+    map {
+        SearchHistoryModel(
+            id = it.id,
+            searchTerm = it.searchTerm
+        )
+    }
 
 class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Long): Date {
+    fun timestampToDate(value: Long): Date {
         return Date(value)
     }
 
@@ -84,6 +95,14 @@ class Converters {
     fun dateToTimestamp(date: Date): Long {
         return date.time
     }
+
+    @TypeConverter
+    fun convertNetflixItemListToJSONString(netflixItemList: NetflixItemList): String =
+        Gson().toJson(netflixItemList)
+
+    @TypeConverter
+    fun convertJSONStringToNetflixItemList(jsonString: String): NetflixItemList =
+        Gson().fromJson(jsonString, NetflixItemList::class.java)
 }
 
 

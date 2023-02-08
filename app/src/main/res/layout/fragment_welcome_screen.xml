@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_large"
+        tools:context=".ui.WelcomeScreenFragment">
+
+        <TextView
+            android:id="@+id/welcome_message_tv"
+            style="@style/CustomHeadline1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_large"
+            android:gravity="center"
+            android:text="@string/welcome_message" />
+
+        <include
+            android:id="@+id/region_list_container"
+            layout="@layout/region_selection_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/spacing_large" />
+    </LinearLayout>
+</layout>

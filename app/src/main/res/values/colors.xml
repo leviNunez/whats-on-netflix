@@ -1,12 +1,14 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="primaryColor">#e50914</color>
-    <color name="primaryLightColor">#ff5740</color>
-    <color name="primaryDarkColor">#aa0000</color>
-    <color name="secondaryColor">#800053</color>
-    <color name="secondaryLightColor">#b3407f</color>
-    <color name="secondaryDarkColor">#4f002a</color>
-    <color name="primaryTextColor">#ffffff</color>
-    <color name="secondaryTextColor">#ffffff</color>
-    <color name="chrome">#dbe4eb</color>
+  <color name="primaryColor">#ffffff</color>
+  <color name="primaryLightColor">#ffffff</color>
+  <color name="primaryDarkColor">#cccccc</color>
+  <color name="secondaryColor">#e50914</color>
+  <color name="secondaryLightColor">#ff5740</color>
+  <color name="secondaryDarkColor">#aa0000</color>
+  <color name="primaryTextColor">#000000</color>
+  <color name="secondaryTextColor">#ffffff</color>
+  <color name="chrome">#E6EDf5</color>
+  <color name="shimmerColor">#C2C8CF</color>
+  <color name="shimmerHighlight">#ffffff</color>
 </resources>

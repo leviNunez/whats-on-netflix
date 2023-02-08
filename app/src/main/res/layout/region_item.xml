@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="regionModel"
+            type="com.android.course.whatsonnetflix.domain.RegionModel" />
+
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.ui.adapter.RegionItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(regionModel)}"
+        android:paddingVertical="@dimen/spacing_normal">
+
+        <ImageView
+            android:id="@+id/globe_iv"
+            android:layout_width="@dimen/default_icon_size"
+            android:layout_height="@dimen/default_icon_size"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_globe_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_globe_24" />
+
+        <TextView
+            android:id="@+id/search_history_item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:gravity="center_vertical"
+            android:text="@{regionModel.country}"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/normal_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/globe_iv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Argentina" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

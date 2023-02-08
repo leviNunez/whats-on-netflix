@@ -1,36 +1,21 @@
 package com.android.course.whatsonnetflix.data.local
 
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-
-private const val COL_SERIES = "series"
-private const val COL_MOVIE = "movie"
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NetflixContentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(netflixContentPreview: List<NetflixContentPreviewEntity>)
+    suspend fun insertAllCategories(toInsert: List<CategoryEntity>) : List<Long>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNetflixContent(netflixContent: NetflixContentEntity)
+    @Query("select * from category_table order by id desc")
+    fun getAllCategories(): Flow<List<CategoryEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNetflixSearchHistoryItem(netflixSearchHistoryItem: NetflixSearchHistoryEntity)
+    @Query("select * from category_table where title = :title")
+    suspend fun getCategoryByTitle(title: String): CategoryEntity
 
-    @Query("select * from netflix_content_preview_table where titleType = '$COL_SERIES' order by titleDate desc")
-    fun getTvShows(): LiveData<List<NetflixContentPreviewEntity>>
-
-    @Query("select * from netflix_content_preview_table where titleType = '$COL_MOVIE' order by titleDate desc")
-    fun getMovies(): LiveData<List<NetflixContentPreviewEntity>>
-
-    @Query("select * from netflix_content_detail_table where netflixId = :key")
-    suspend fun getNetflixContentById(key: Long): NetflixContentEntity?
-
-    @Query("select * from netflix_search_history_table order by timestamp desc")
-    fun getNetflixSearchHistory(): LiveData<List<NetflixSearchHistoryEntity>>
-
-    @Delete
-    suspend fun deleteSearchHistoryItem(netflixSearchHistoryItem: NetflixSearchHistoryEntity)
+    @Query("delete from category_table")
+    suspend fun clearAllCategories()
 
 }

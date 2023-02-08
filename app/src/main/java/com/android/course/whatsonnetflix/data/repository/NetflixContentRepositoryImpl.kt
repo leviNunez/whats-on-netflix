@@ -1,96 +1,106 @@
 package com.android.course.whatsonnetflix.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import com.android.course.whatsonnetflix.data.local.NetflixContentDao
-import com.android.course.whatsonnetflix.data.local.asDomainModel
+import android.app.Application
+import com.android.course.whatsonnetflix.utils.PrefConfig
+import com.android.course.whatsonnetflix.R
+import com.android.course.whatsonnetflix.data.local.*
 import com.android.course.whatsonnetflix.data.remote.ContentsApi
+import com.android.course.whatsonnetflix.data.remote.Result
 import com.android.course.whatsonnetflix.data.remote.asDatabaseModel
 import com.android.course.whatsonnetflix.data.remote.asDomainModel
-import com.android.course.whatsonnetflix.domain.NetflixContent
-import com.android.course.whatsonnetflix.domain.NetflixContentPreview
-import com.android.course.whatsonnetflix.domain.NetflixSearchHistoryItem
-import com.android.course.whatsonnetflix.domain.asDatabaseModel
+import com.android.course.whatsonnetflix.domain.*
 import com.android.course.whatsonnetflix.domain.repository.NetflixContentRepository
-import com.android.course.whatsonnetflix.utils.NoDataException
-import retrofit2.HttpException
-
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-
 
 class NetflixContentRepositoryImpl @Inject constructor(
     private val api: ContentsApi,
+    private val app: Application,
     private val netflixContentDao: NetflixContentDao,
+    private val prefConfig: PrefConfig
 ) : NetflixContentRepository {
 
-
-    override val series: LiveData<List<NetflixContentPreview>> =
-        Transformations.map(netflixContentDao.getTvShows()) {
-            it.asDomainModel()
+    override val categories: Flow<List<CategoryModel>> =
+        netflixContentDao.getAllCategories().map {
+            it.asCategoryModel()
         }
 
-    override val movies: LiveData<List<NetflixContentPreview>> =
-        Transformations.map(netflixContentDao.getMovies()) {
-            it.asDomainModel()
-        }
-
-    override val searchHistory: LiveData<List<NetflixSearchHistoryItem>> =
-        Transformations.map(netflixContentDao.getNetflixSearchHistory()) {
-            Timber.i("$it")
-            it.asDomainModel()
-        }
-
-
-    override suspend fun refreshNetflixContent(titleType: String) {
-        val response = api.getNetflixContent(titleType)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                netflixContentDao.insertAll(it.asDatabaseModel())
-            }
-        } else {
-            throw HttpException(response)
-        }
-
-    }
-
-    override suspend fun getNetflixContentDetail(contentId: Long) {
-        val response = api.getNetflixContentDetail(contentId)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                netflixContentDao.insertNetflixContent(it.asDatabaseModel())
-            }
-        } else {
-            throw HttpException(response)
-        }
-
-    }
-
-    override suspend fun getNetflixContentByTitle(contentTitle: String)
-            : List<NetflixContentPreview> {
-        val response = api.getNetflixContentByTitle(contentTitle)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return it.asDomainModel()
-            }
-        }
-        throw HttpException(response)
-    }
-
-    override suspend fun findNetflixContentById(contentId: Long): NetflixContent {
-        val netflixContent = netflixContentDao.getNetflixContentById(contentId)
-        if (netflixContent == null) {
-            throw NoDataException("NetflixContent does not yet exist on data base")
-        } else {
-            return netflixContent.asDomainModel()
+    override suspend fun getAllRegions(): Result<List<RegionModel>> {
+        return try {
+            val regions = api.getRegions()
+            Result.Success(data = regions.asDomainModel())
+        } catch (e: Exception) {
+            Result.Error(e)
         }
     }
 
-    override suspend fun addNetflixSearchHistoryItemToDb(netflixSearchHistoryItem: NetflixSearchHistoryItem) {
-        netflixContentDao.insertNetflixSearchHistoryItem(netflixSearchHistoryItem.asDatabaseModel())
+    override suspend fun refreshAllCategories(regionCode: String): Result<List<Long>> {
+        return try {
+            val newContent = api.getNetflixContent(regionCode)
+            val expiringContent =
+                api.getExpiringNetflixContent(regionCode)
+            val allContent =
+                newContent.asDatabaseModel() + expiringContent.asDatabaseModel(isExpiring = true)
+            val categories = createCategories(items = allContent)
+            netflixContentDao.clearAllCategories()
+            val inserted = netflixContentDao.insertAllCategories(categories)
+            Result.Success(data = inserted)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
-    override suspend fun deleteSearchHistoryItem(searchHistoryItem: NetflixSearchHistoryItem) {
-        netflixContentDao.deleteSearchHistoryItem(searchHistoryItem.asDatabaseModel())
+    private fun createCategories(items: List<NetflixItemEntity>): List<CategoryEntity> {
+        val titles = app.resources.getStringArray(R.array.titles).toList()
+
+        return listOf(
+            CategoryEntity(
+                title = titles[INDEX_NEW],
+                netflixItemList = NetflixItemList(items = items.filter { !it.isExpiring }.take(20))
+            ),
+            CategoryEntity(
+                title = titles[INDEX_TV_SHOWS],
+                netflixItemList = NetflixItemList(
+                    items = items.filter { it.titleType == NetflixItemTitleType.TVSHOWS.value }
+                        .shuffled().take(MAX_ITEMS)
+                )
+            ),
+            CategoryEntity(
+                title = titles[INDEX_MOVIES],
+                netflixItemList = NetflixItemList(items = items.filter { it.titleType == NetflixItemTitleType.MOVIES.value }
+                    .shuffled().take(MAX_ITEMS))
+            ),
+            CategoryEntity(
+                title = titles[INDEX_LEAVING_SOON],
+                netflixItemList = NetflixItemList(
+                    items = items.filter { it.isExpiring }.take(
+                        MAX_ITEMS
+                    )
+                )
+            )
+        ).reversed()
+
+    }
+
+    companion object {
+        const val INDEX_NEW = 0
+        const val INDEX_TV_SHOWS = 1
+        const val INDEX_MOVIES = 2
+        const val INDEX_LEAVING_SOON = 3
+
+        const val MAX_ITEMS = 50
+    }
+
+    override suspend fun getCategoryByTitle(title: String): CategoryModel =
+        netflixContentDao.getCategoryByTitle(title).asCategoryModel()
+
+    override suspend fun getContentByTitle(title: String): Result<List<NetflixItemModel>> {
+        return try {
+            val result = api.getNetflixContentByTitle(title)
+            Result.Success(data = result.asDomainModel())
+        } catch (e: Exception) {
+            Result.Error(exception = e)
+        }
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginVertical="@dimen/spacing_normal"
+    android:paddingHorizontal="@dimen/spacing_normal">
+
+    <TextView
+        android:id="@+id/category_title"
+        style="@style/CustomHeadline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/spacing_normal"
+        android:background="@color/chrome"
+        android:text="New Releases"
+        android:textColor="@color/chrome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/items_sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/netflix_item_1"
+                android:layout_width="@dimen/netflix_item_width"
+                android:layout_height="@dimen/netflix_item_height"
+                android:adjustViewBounds="true"
+                android:background="@color/chrome"
+                android:padding="@dimen/spacing_small"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedCornersImage" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/netflix_item_2"
+                android:layout_width="@dimen/netflix_item_width"
+                android:layout_height="@dimen/netflix_item_height"
+                android:adjustViewBounds="true"
+                android:background="@color/chrome"
+                android:padding="@dimen/spacing_small"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedCornersImage" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/netflix_item_3"
+                android:layout_width="@dimen/netflix_item_width"
+                android:layout_height="@dimen/netflix_item_height"
+                android:adjustViewBounds="true"
+                android:background="@color/chrome"
+                android:padding="@dimen/spacing_small"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedCornersImage" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/netflix_item_4"
+                android:layout_width="@dimen/netflix_item_width"
+                android:layout_height="@dimen/netflix_item_height"
+                android:adjustViewBounds="true"
+                android:background="@color/chrome"
+                android:padding="@dimen/spacing_small"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedCornersImage" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

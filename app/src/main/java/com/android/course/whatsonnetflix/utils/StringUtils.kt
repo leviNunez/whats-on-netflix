@@ -9,35 +9,12 @@ import android.text.style.StyleSpan
 import java.sql.Date
 import java.sql.Time
 
-
-fun formatNetflixContentDetailText(title: String, subtitle: String): SpannableString {
-    val toFormat = "$title $subtitle"
-    val spannable = SpannableString(toFormat)
-    val end = title.length
-    spannable.setSpan(
-        StyleSpan(Typeface.BOLD),
-        0,
-        end,
-        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
-    return spannable
-}
-
-fun appendParenthesis(value: String): String {
-    return "($value)"
-}
-
-
 fun String.convertSecondsToTime(): String {
     val temp = this.toLong()
     val hours = temp / 3600
     val minutes = (temp % 3600) / 60
-    val seconds = (temp % 3600) % 60;
 
-    val toConvert = "$hours:$minutes:$seconds"
-    val time = Time.valueOf(toConvert)
-
-    return time.toString()
+    return "${hours}h ${minutes}m"
 }
 
 fun String.convertToDate(): Date {
@@ -50,4 +27,18 @@ fun String.decodeHtmlEntities(): String {
     } else {
         this
     }
+}
+
+fun formatNoResultsText(constant: String, searchTerm: String): SpannableString {
+    val toFormat = "$constant $searchTerm"
+    val spannable = SpannableString(toFormat)
+    val start = constant.length
+    val end = spannable.length
+    spannable.setSpan(
+        StyleSpan(Typeface.BOLD),
+        start,
+        end,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return spannable
 }

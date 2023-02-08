@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="netflixItem"
+            type="com.android.course.whatsonnetflix.domain.NetflixItemModel" />
+
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.ui.adapter.NetflixItemClickListener" />
+    </data>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="@dimen/netflix_item_width"
+            android:layout_height="@dimen/netflix_item_height"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/spacing_small"
+            android:onClick="@{() -> clickListener.onClick(netflixItem)}"
+            app:shapeAppearanceOverlay="@style/roundedCornersImage"
+            app:netflixItemThumbnail="@{netflixItem}"
+            tools:src="@drawable/thumbnail" />
+</layout>
