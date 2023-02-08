@@ -40,8 +40,8 @@ class SearchableFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val searchHistoryAdapter =
-            SearchHistoryAdapter(onClickListener = SearchHistoryItemClickListener { item, view ->
-                when (view.id) {
+            SearchHistoryAdapter(onClickListener = SearchHistoryItemClickListener { item, clickedView ->
+                when (clickedView.id) {
                     R.id.delete_history_icon_iv -> viewModel.deleteItem(item)
                     else -> searchView.setQuery(item.searchTerm, true)
                 }

@@ -3,7 +3,6 @@ package com.android.course.whatsonnetflix.ui
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -14,8 +13,6 @@ import com.android.course.whatsonnetflix.utils.convertSecondsToTime
 import com.android.course.whatsonnetflix.utils.formatNoResultsText
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.facebook.shimmer.Shimmer
-import com.facebook.shimmer.ShimmerFrameLayout
 
 @BindingAdapter("netflixItemThumbnail")
 fun setThumbnailUrl(imageView: ImageView, netflixItemModel: NetflixItemModel?) {
@@ -23,7 +20,7 @@ fun setThumbnailUrl(imageView: ImageView, netflixItemModel: NetflixItemModel?) {
         val img = if (it.thumbnail != "0") it.thumbnail else it.poster
         val imgUri = img.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context).load(imgUri).apply(
-            RequestOptions().placeholder(R.drawable.item_place_holder)
+            RequestOptions().placeholder(R.drawable.image_place_holder)
                 .error(R.drawable.ic_broken_image_24dp)
         ).into(imageView)
     }
