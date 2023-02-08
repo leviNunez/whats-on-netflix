@@ -1,4 +1,4 @@
-package com.android.course.whatsonnetflix
+package com.android.course.whatsonnetflix.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.databinding.ActivityMainBinding
-import com.android.course.whatsonnetflix.ui.HomeFragmentDirections
-import com.android.course.whatsonnetflix.ui.SearchResultsFragmentDirections
 
 import dagger.hilt.android.AndroidEntryPoint
 

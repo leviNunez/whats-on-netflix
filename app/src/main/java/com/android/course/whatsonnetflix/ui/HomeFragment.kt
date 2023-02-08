@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindState() {
-        val categoryAdapter = CategoryAdapter(onItemClickListener = NetflixItemClickListener {
+        val categoryAdapter = CategoryAdapter(itemClickListener = NetflixItemClickListener {
             navigateToContentDetail(it)
         }, titles = resources.getStringArray(R.array.titles))
         categoryAdapter.stateRestorationPolicy =

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/spacing_normal"
         android:background="@color/chrome"
-        android:text="New Releases"
+        android:text="@string/new_releases"
         android:textColor="@color/chrome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

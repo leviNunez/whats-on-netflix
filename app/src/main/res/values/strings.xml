@@ -35,6 +35,7 @@
     <string name="more_like_this_text">More Like This</string>
     <string name="search_icon_description">Search icon</string>
     <string name="search_bar_message">Search for a show or movie</string>
+    <string name="new_releases">New Releases</string>
 
 
 </resources>

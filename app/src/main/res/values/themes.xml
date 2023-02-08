@@ -45,11 +45,5 @@
         <item name="cornerSize">4%</item>
     </style>
 
-    <style name="redButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/bg_rounded_corners_btn</item>
-        <item name="backgroundTint">@color/secondaryColor</item>
-        <item name="android:textColor">@color/secondaryTextColor</item>
-    </style>
-
 
 </resources>
