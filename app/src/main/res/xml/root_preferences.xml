@@ -1,0 +1,9 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/settings_screen_title">
+
+    <Preference
+        app:key="@string/preference_file_key"
+        app:title="Current region/country"
+        />
+</PreferenceScreen>

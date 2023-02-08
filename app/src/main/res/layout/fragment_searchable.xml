@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.viewmodel.SearchableViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        tools:context=".ui.SearchableFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_history_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/spacing_normal"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/spacing_normal"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="16"
+            tools:listitem="@layout/search_history_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

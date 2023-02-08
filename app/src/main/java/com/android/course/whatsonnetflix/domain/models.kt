@@ -1,49 +1,50 @@
 package com.android.course.whatsonnetflix.domain
 
-import com.android.course.whatsonnetflix.data.local.NetflixSearchHistoryEntity
-import com.android.course.whatsonnetflix.utils.decodeHtmlEntities
-import java.util.*
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import java.sql.Date
 
-data class NetflixContent(
+
+enum class NetflixItemTitleType(val value: String) {
+    TVSHOWS("series"),
+    MOVIES("movie")
+}
+
+
+data class CategoryModel(
+    val id: Int,
+    val title: String,
+    val netflixItemList: List<NetflixItemModel>
+)
+
+
+@Parcelize
+data class NetflixItemModel(
     val netflixId: Long,
     val title: String,
-    val maturityLabel: String,
-    val img: String,
+    val thumbnail: String,
+    val poster: String,
     val titleType: String,
     val synopsis: String,
     val year: String,
     val runtime: String,
-    val titleDate: Date
+    val streamingDate: Date,
+    val isExpiring: Boolean
+) : Parcelable
+
+
+data class RegionModel(
+    val id: Int,
+    val country: String,
+    val countryCode: String,
 )
 
-data class NetflixContentPreview(
-    val netflixId: Long,
-    val img: String,
-    val title: String,
-    val titleType: String,
-    val titleDate: Date
+data class SearchHistoryModel(
+    val id: Long,
+    val searchTerm: String
 )
 
-fun NetflixContentPreview.asNetflixSearchHistoryItem(): NetflixSearchHistoryItem =
-    NetflixSearchHistoryItem(
-        netflixId = netflixId,
-        img = img,
-        title = title.decodeHtmlEntities()
-    )
 
-data class NetflixSearchHistoryItem(
-    val netflixId: Long,
-    val img: String,
-    val title: String,
-)
-
-fun NetflixSearchHistoryItem.asDatabaseModel(): NetflixSearchHistoryEntity =
-    NetflixSearchHistoryEntity(
-        netflixId = netflixId,
-        img = img,
-        title = title,
-        timestamp = System.currentTimeMillis()
-    )
 
 
 

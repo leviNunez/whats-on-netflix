@@ -1,9 +1,12 @@
 package com.android.course.whatsonnetflix.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.android.course.whatsonnetflix.utils.PrefConfig
 import com.android.course.whatsonnetflix.data.local.NetflixContentDao
 import com.android.course.whatsonnetflix.data.local.NetflixContentDatabase
+import com.android.course.whatsonnetflix.data.local.SearchHistoryDao
 import com.android.course.whatsonnetflix.data.remote.ContentsApi
 import com.android.course.whatsonnetflix.data.remote.NetworkInterceptor
 import com.android.course.whatsonnetflix.data.remote.NullToEmptyListAdapter
@@ -24,18 +27,28 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
+    fun providePrefConfig(app: Application): PrefConfig {
+        return PrefConfig(app)
+    }
+
+    @Provides
     @Singleton
-    fun provideContentDatabase(@ApplicationContext appContext: Context): NetflixContentDatabase {
+    fun provideNetflixContentDatabase(@ApplicationContext appContext: Context): NetflixContentDatabase {
         return Room.databaseBuilder(
             appContext,
             NetflixContentDatabase::class.java,
-            "netflixContent"
+            "netflixItem"
         ).build()
     }
 
     @Provides
-    fun provideContentDao(netflixContentDatabase: NetflixContentDatabase): NetflixContentDao {
-        return netflixContentDatabase.contentDao()
+    fun provideNetflixContentDao(netflixContentDatabase: NetflixContentDatabase): NetflixContentDao {
+        return netflixContentDatabase.netflixContentDao()
+    }
+
+    @Provides
+    fun provideSearchHistoryDao(netflixContentDatabase: NetflixContentDatabase): SearchHistoryDao {
+        return netflixContentDatabase.searchHistoryDao()
     }
 
     @Provides

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.viewmodel.HomeViewModel" />
+
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.ui.RetryButtonClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.HomeFragment">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:progressIndicatorVisibility="@{viewModel.uiState.loading}"
+            app:shimmer_auto_start="true"
+            app:shimmer_base_color="@color/shimmerColor"
+            app:shimmer_colored="true"
+            app:shimmer_highlight_color="@color/shimmerHighlight">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/big_shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <FrameLayout
+            android:id="@+id/netflix_content_frame_layout"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            app:frameLayoutVisibility="@{viewModel.uiState.loading}"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categories_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:viewVisibility="@{viewModel.uiState.shouldShowCategories}"
+                tools:itemCount="10"
+                tools:listitem="@layout/category_item" />
+
+            <include
+                android:id="@+id/retry_layout_container"
+                layout="@layout/retry_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:clickListener="@{clickListener}"
+                app:viewVisibility="@{viewModel.uiState.shouldShowRetryLayout}" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -5,15 +5,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [
-        NetflixContentPreviewEntity::class,
-        NetflixContentEntity::class,
-        NetflixSearchHistoryEntity::class
-    ],
+    entities = [CategoryEntity::class, SearchHistoryEntity::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class NetflixContentDatabase : RoomDatabase() {
-    abstract fun contentDao(): NetflixContentDao
+    abstract fun netflixContentDao(): NetflixContentDao
+    abstract fun searchHistoryDao(): SearchHistoryDao
 }

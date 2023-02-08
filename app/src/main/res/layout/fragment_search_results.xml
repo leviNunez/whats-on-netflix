@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.viewmodel.SearchResultsViewModel" />
+
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.ui.RetryButtonClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/spacing_small"
+        tools:context=".ui.SearchResultsFragment">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_indicator"
+            style="@style/CustomCircularProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progressIndicatorVisibility="@{viewModel.uiState.loading}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_results_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingVertical="@dimen/spacing_normal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:recyclerViewVisibility="@{viewModel.uiState.results}"
+            app:spanCount="3"
+            tools:itemCount="16"
+            tools:listitem="@layout/netflix_item" />
+
+        <TextView
+            android:id="@+id/no_results_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:textSize="@dimen/normal_text_size"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:noResultsText="@{viewModel.uiState.searchTerm}"
+            app:noResultsTextViewVisibility="@{viewModel.uiState.results}"
+            tools:text="No results for 'mortal kombat'" />
+
+        <include
+            layout="@layout/retry_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:isVisible="@{viewModel.uiState.hasError}"
+            app:clickListener="@{clickListener}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
