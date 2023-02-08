@@ -1,6 +1,8 @@
 # whats-on-netflix-app
 An app that lets you browse Netflix's content by region/country without a subscription using the uNoGS (unofficial Netflix online Global Search) api from https://rapidapi.com/.
 
+I used the MVVM pattern to separate the application's business and presentation logic from its user interface. 
+
 When first launched, a region must be selected.
 
 <img width="276" alt="Screen Shot 2023-02-08 at 3 54 08 PM" src="https://user-images.githubusercontent.com/81485281/217637493-5a24527a-98cc-49f6-bb5d-c24a939ec3ff.png"> <img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217646594-202a0061-328e-4a3b-bfe9-0d31701a6c25.png">
