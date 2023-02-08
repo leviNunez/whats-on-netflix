@@ -1,14 +1,30 @@
-# whats-on-netflix
-An app that lets you browse Netflix's content without a subscription.
+# whats-on-netflix-app
+An app that lets you browse Netflix's content by region/country without a subscription using the uNoGS (unofficial Netflix online Global Search) api from https://rapidapi.com/.
 
-I used the uNoGS (unofficial Netflix online Global Search) api from https://rapidapi.com/.
+When first launched, a region must be selected.
 
-The location is set to United States by default.
+<img width="276" alt="Screen Shot 2023-02-08 at 3 54 08 PM" src="https://user-images.githubusercontent.com/81485281/217637493-5a24527a-98cc-49f6-bb5d-c24a939ec3ff.png">
 
-There are two tabs: One for series and another for movies.
-Each tab loads the last 100 series/movies ordered by date.
-Series and movies content can also be searched by title.
+The Home screen presents the content divided by 4 categories: New Releases, TV Shows, Movies and Leaving Soon.
 
-Tapping on the content thumbnail will load more details such as year, runtime, synopsis, etc.
+<img width="276" alt="Screen Shot 2023-02-08 at 3 49 22 PM" src="https://user-images.githubusercontent.com/81485281/217637547-e30417dd-0111-4240-8b26-8d70149bbb19.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 16 38 PM" src="https://user-images.githubusercontent.com/81485281/217641586-ddc4f89f-061d-4ef1-9280-8cbf868dc4f3.png">
 
-Google's Room persistence library is used for offline caching.
+Each item can be viewed in detail by tapping on the thumbnail.
+
+<img width="276" alt="Screen Shot 2023-02-08 at 3 52 57 PM" src="https://user-images.githubusercontent.com/81485281/217637615-4a2f7b98-4494-45c4-a3d2-11c6d2383950.png"> <img width="276" alt="Screen Shot 2023-02-08 at 3 55 04 PM" src="https://user-images.githubusercontent.com/81485281/217641847-cedce35a-6fc8-4495-8502-b96ea75b8764.png">
+
+Content can be searched by title using the search bar. 
+
+<img width="276" alt="Screen Shot 2023-02-08 at 3 53 46 PM" src="https://user-images.githubusercontent.com/81485281/217637762-e9016ec0-f2bc-4792-9330-df41047e66f7.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 13 19 PM" src="https://user-images.githubusercontent.com/81485281/217641004-604f51f7-662d-4f9e-bde6-a00054bd8a27.png">
+
+Each query is stored in a data base and filtered based on user's input.
+
+<img width="276" alt="Screen Shot 2023-02-08 at 3 53 32 PM" src="https://user-images.githubusercontent.com/81485281/217637682-0f68d8bf-3dde-45e6-9ca2-def11238c753.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 08 04 PM" src="https://user-images.githubusercontent.com/81485281/217640369-e0aecd3b-e0a6-49de-8776-306ffd0ee7c2.png">
+
+The region can be changed at any time thought the settings. Doing so will refresh the content list.
+
+<img width="276" alt="Screen Shot 2023-02-08 at 3 53 20 PM" src="https://user-images.githubusercontent.com/81485281/217642606-1eaa2971-f398-4be2-922b-4b05c804ec00.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 20 07 PM" src="https://user-images.githubusercontent.com/81485281/217642631-9a0b39c4-6a77-41e8-98f5-2b8d84f51fd5.png">
+
+Dark mode is also supported.
+
+<img width="276" alt="Screen Shot 2023-02-08 at 4 24 41 PM" src="https://user-images.githubusercontent.com/81485281/217643394-3317d732-7235-46e0-97db-df74a5e2ad4a.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 26 00 PM" src="https://user-images.githubusercontent.com/81485281/217643433-f1ad7453-6bd6-44b8-9013-6d04ec642a46.png">
