@@ -11,7 +11,7 @@ The Home screen presents the content divided by 4 categories: New Releases, TV S
 <img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217645011-0314a3fa-c430-41e0-8d7c-748fae0dbf0b.png"> <img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217645307-cf753056-4843-4a38-b752-6643350a3836.png">
 
 
-Each item can be viewed in detail by tapping on the thumbnail.
+Each item can be viewed in detail by tapping on its thumbnail.
 
 <img width="276" alt="Screen Shot 2023-02-08 at 3 52 57 PM" src="https://user-images.githubusercontent.com/81485281/217637615-4a2f7b98-4494-45c4-a3d2-11c6d2383950.png"> <img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217645766-451cb7b2-0b48-4478-b6d1-665ec7dcccf4.png">
 
