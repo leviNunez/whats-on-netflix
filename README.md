@@ -7,11 +7,13 @@ When first launched, a region must be selected.
 
 The Home screen presents the content divided by 4 categories: New Releases, TV Shows, Movies and Leaving Soon.
 
-<img width="276" alt="Screen Shot 2023-02-08 at 3 49 22 PM" src="https://user-images.githubusercontent.com/81485281/217637547-e30417dd-0111-4240-8b26-8d70149bbb19.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 16 38 PM" src="https://user-images.githubusercontent.com/81485281/217641586-ddc4f89f-061d-4ef1-9280-8cbf868dc4f3.png">
+<img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217645011-0314a3fa-c430-41e0-8d7c-748fae0dbf0b.png"> <img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217645307-cf753056-4843-4a38-b752-6643350a3836.png">
+
 
 Each item can be viewed in detail by tapping on the thumbnail.
 
-<img width="276" alt="Screen Shot 2023-02-08 at 3 52 57 PM" src="https://user-images.githubusercontent.com/81485281/217637615-4a2f7b98-4494-45c4-a3d2-11c6d2383950.png"> <img width="276" alt="Screen Shot 2023-02-08 at 3 55 04 PM" src="https://user-images.githubusercontent.com/81485281/217641847-cedce35a-6fc8-4495-8502-b96ea75b8764.png">
+<img width="276" alt="Screen Shot 2023-02-08 at 3 52 57 PM" src="https://user-images.githubusercontent.com/81485281/217637615-4a2f7b98-4494-45c4-a3d2-11c6d2383950.png"> <img width="276" alt="image" src="https://user-images.githubusercontent.com/81485281/217645766-451cb7b2-0b48-4478-b6d1-665ec7dcccf4.png">
+
 
 Content can be searched by title using the search bar. 
 
