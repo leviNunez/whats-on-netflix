@@ -23,7 +23,7 @@ Each query is stored in a data base and then filtered as the user types.
 
 <img width="276" alt="Screen Shot 2023-02-08 at 3 53 32 PM" src="https://user-images.githubusercontent.com/81485281/217637682-0f68d8bf-3dde-45e6-9ca2-def11238c753.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 08 04 PM" src="https://user-images.githubusercontent.com/81485281/217640369-e0aecd3b-e0a6-49de-8776-306ffd0ee7c2.png">
 
-The region can be changed at any time thought the settings. Doing so will refresh the content list.
+The region can be changed at any time through the settings menu. Doing so will refresh the content list.
 
 <img width="276" alt="Screen Shot 2023-02-08 at 3 53 20 PM" src="https://user-images.githubusercontent.com/81485281/217642606-1eaa2971-f398-4be2-922b-4b05c804ec00.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 20 07 PM" src="https://user-images.githubusercontent.com/81485281/217642631-9a0b39c4-6a77-41e8-98f5-2b8d84f51fd5.png">
 
