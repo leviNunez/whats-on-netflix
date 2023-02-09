@@ -22,7 +22,7 @@ Content can be searched by title using the search bar.
 
 <img width="276" alt="Screen Shot 2023-02-08 at 3 53 46 PM" src="https://user-images.githubusercontent.com/81485281/217637762-e9016ec0-f2bc-4792-9330-df41047e66f7.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 13 19 PM" src="https://user-images.githubusercontent.com/81485281/217641004-604f51f7-662d-4f9e-bde6-a00054bd8a27.png">
 
-Each query is stored in a data base and then filtered as the user types.
+Each query is stored in a data base and then filtered as you type.
 
 <img width="276" alt="Screen Shot 2023-02-08 at 3 53 32 PM" src="https://user-images.githubusercontent.com/81485281/217637682-0f68d8bf-3dde-45e6-9ca2-def11238c753.png"> <img width="276" alt="Screen Shot 2023-02-08 at 4 08 04 PM" src="https://user-images.githubusercontent.com/81485281/217640369-e0aecd3b-e0a6-49de-8776-306ffd0ee7c2.png">
 
