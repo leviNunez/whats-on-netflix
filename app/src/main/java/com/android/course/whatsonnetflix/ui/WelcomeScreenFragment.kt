@@ -11,10 +11,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.ui.adapter.RegionModelAdapter
 import com.android.course.whatsonnetflix.ui.adapter.RegionItemClickListener
 import com.android.course.whatsonnetflix.databinding.FragmentWelcomeScreenBinding
+import com.android.course.whatsonnetflix.domain.RegionModel
 import com.android.course.whatsonnetflix.viewmodel.RegionSelectionViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -49,9 +52,10 @@ class WelcomeScreenFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     val regionModelAdapter =
-                        RegionModelAdapter(onClickListener = RegionItemClickListener {
-                            viewModel.saveRegion(it)
+                        RegionModelAdapter(onClickListener = RegionItemClickListener { selectedRegion ->
+                            viewModel.saveRegion(selectedRegion)
                             savedStateHandle[REGION_SELECTED] = true
+                            showSnackbar(selectedRegion)
                             findNavController().popBackStack()
                         })
                     binding.regionListContainer.regionListRv.adapter = regionModelAdapter
@@ -59,5 +63,13 @@ class WelcomeScreenFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showSnackbar(region: RegionModel) {
+        Snackbar.make(
+            requireView(),
+            getString(R.string.region_selected, region.country),
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }

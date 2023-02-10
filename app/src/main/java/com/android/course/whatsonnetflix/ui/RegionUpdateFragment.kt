@@ -55,7 +55,7 @@ class RegionUpdateFragment : Fragment() {
                         RegionModelAdapter(onClickListener = RegionItemClickListener { selectedRegion ->
                             viewModel.saveRegion(selectedRegion)
                             savedStateHandle[REGION_UPDATED] = true
-                            showSnackbar()
+                            showSnackbar(selectedRegion)
                             findNavController().popBackStack()
                         })
                     binding.regionListContainer.regionListRv.adapter = regionModelAdapter
@@ -65,8 +65,11 @@ class RegionUpdateFragment : Fragment() {
         }
     }
 
-    private fun showSnackbar() {
-        Snackbar.make(requireView(), R.string.region_updated, Snackbar.LENGTH_SHORT)
-            .show()
+    private fun showSnackbar(region: RegionModel) {
+        Snackbar.make(
+            requireView(),
+            getString(R.string.region_updated, region.country),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }
