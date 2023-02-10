@@ -11,11 +11,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.ui.adapter.RegionModelAdapter
 import com.android.course.whatsonnetflix.ui.adapter.RegionItemClickListener
 import com.android.course.whatsonnetflix.databinding.FragmentRegionUpdateBinding
 import com.android.course.whatsonnetflix.domain.RegionModel
 import com.android.course.whatsonnetflix.viewmodel.RegionSelectionViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,6 +37,10 @@ class RegionUpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegionUpdateBinding.inflate(layoutInflater, container, false)
+
+        binding.viewModel = viewModel
+        binding.clickListener = RetryButtonClickListener { viewModel.onRetry() }
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -45,35 +51,22 @@ class RegionUpdateFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    if (uiState.isLoading) {
-                        showProgressIndicator()
-                    } else {
-                        showRegionsList()
-                        bindRegionsList(uiState.regions)
-                    }
+                    val regionModelAdapter =
+                        RegionModelAdapter(onClickListener = RegionItemClickListener { selectedRegion ->
+                            viewModel.saveRegion(selectedRegion)
+                            savedStateHandle[REGION_UPDATED] = true
+                            showSnackbar()
+                            findNavController().popBackStack()
+                        })
+                    binding.regionListContainer.regionListRv.adapter = regionModelAdapter
+                    regionModelAdapter.submitList(uiState.regions)
                 }
             }
         }
     }
 
-    private fun showProgressIndicator() {
-        binding.regionListContainer.progressIndicator.visibility = View.VISIBLE
-        binding.regionListContainer.regionListRv.visibility = View.GONE
-    }
-
-    private fun showRegionsList() {
-        binding.regionListContainer.progressIndicator.visibility = View.GONE
-        binding.regionListContainer.regionListRv.visibility = View.VISIBLE
-    }
-
-    private fun bindRegionsList(regions: List<RegionModel>) {
-        val regionModelAdapter =
-            RegionModelAdapter(onClickListener = RegionItemClickListener {
-                viewModel.saveRegion(it)
-                savedStateHandle[REGION_UPDATED] = true
-                findNavController().popBackStack()
-            })
-        binding.regionListContainer.regionListRv.adapter = regionModelAdapter
-        regionModelAdapter.submitList(regions)
+    private fun showSnackbar() {
+        Snackbar.make(requireView(), R.string.region_updated, Snackbar.LENGTH_SHORT)
+            .show()
     }
 }

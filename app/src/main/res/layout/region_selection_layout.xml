@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.viewmodel.RegionSelectionViewModel" />
+        
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.ui.RetryButtonClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,7 +43,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/select_region_tv" />
+            app:layout_constraintTop_toBottomOf="@id/select_region_tv"
+            app:progressIndicatorVisibility="@{viewModel.uiState.loading}" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,12 +53,27 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_normal"
             android:clipToPadding="false"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/select_region_tv"
+            app:recyclerViewVisibility="@{viewModel.uiState.regions}"
             tools:itemCount="20"
+            tools:visibility="visible"
             tools:listitem="@layout/region_item" />
+
+        <include
+            layout="@layout/retry_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_region_tv"
+            app:isVisible="@{viewModel.uiState.hasError}"
+            app:clickListener="@{clickListener}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
