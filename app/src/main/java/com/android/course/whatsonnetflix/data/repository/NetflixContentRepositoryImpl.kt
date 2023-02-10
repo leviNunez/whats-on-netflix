@@ -1,7 +1,6 @@
 package com.android.course.whatsonnetflix.data.repository
 
 import android.app.Application
-import com.android.course.whatsonnetflix.utils.PrefConfig
 import com.android.course.whatsonnetflix.R
 import com.android.course.whatsonnetflix.data.local.*
 import com.android.course.whatsonnetflix.data.remote.ContentsApi
@@ -18,7 +17,6 @@ class NetflixContentRepositoryImpl @Inject constructor(
     private val api: ContentsApi,
     private val app: Application,
     private val netflixContentDao: NetflixContentDao,
-    private val prefConfig: PrefConfig
 ) : NetflixContentRepository {
 
     override val categories: Flow<List<CategoryModel>> =

@@ -22,6 +22,7 @@
     <string name="empty_list_error_message">Whoops! something went wrong</string>
     <string name="retry_btn">Retry</string>
     <string name="hd_icon">Icon</string>
+    <string name="region_updated">Region updated!</string>
 
     <string-array name="titles">
         <item name="new_release">New Releases</item>

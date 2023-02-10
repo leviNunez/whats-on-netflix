@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.course.whatsonnetflix.viewmodel.RegionSelectionViewModel" />
+
+        <variable
+            name="clickListener"
+            type="com.android.course.whatsonnetflix.ui.RetryButtonClickListener" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/spacing_large"
         android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_large"
         tools:context=".ui.WelcomeScreenFragment">
 
         <include
             android:id="@+id/region_list_container"
             layout="@layout/region_selection_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:clickListener="@{clickListener}"
+            app:viewModel="@{viewModel}" />
     </LinearLayout>
 </layout>

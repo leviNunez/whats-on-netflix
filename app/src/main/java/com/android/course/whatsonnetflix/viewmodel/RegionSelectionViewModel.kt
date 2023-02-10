@@ -24,9 +24,12 @@ class RegionSelectionViewModel @Inject constructor(
         getRegions()
     }
 
+    fun onRetry() {
+        getRegions()
+    }
 
     private fun getRegions() {
-        _uiState.update { it.copy(isLoading = true) }
+        _uiState.update { it.copy(isLoading = true, hasError = false) }
         viewModelScope.launch {
             val result = repository.getAllRegions()
             _uiState.update {
@@ -35,7 +38,7 @@ class RegionSelectionViewModel @Inject constructor(
                         it.copy(regions = result.data, isLoading = false)
                     }
                     is Result.Error -> {
-                        it.copy(isLoading = false)
+                        it.copy(isLoading = false, hasError = true)
                     }
                 }
             }
@@ -48,6 +51,7 @@ class RegionSelectionViewModel @Inject constructor(
 
     data class RegionSelectionUiState(
         val isLoading: Boolean = false,
+        val hasError: Boolean = false,
         val regions: List<RegionModel> = emptyList()
     )
 }

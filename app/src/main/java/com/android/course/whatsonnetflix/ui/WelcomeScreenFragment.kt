@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.android.course.whatsonnetflix.ui.adapter.RegionModelAdapter
 import com.android.course.whatsonnetflix.ui.adapter.RegionItemClickListener
 import com.android.course.whatsonnetflix.databinding.FragmentWelcomeScreenBinding
-import com.android.course.whatsonnetflix.domain.RegionModel
 import com.android.course.whatsonnetflix.viewmodel.RegionSelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ class WelcomeScreenFragment : Fragment() {
         const val REGION_SELECTED: String = "REGION_SELECTED"
     }
 
-    private val regionSelectionViewModel: RegionSelectionViewModel by activityViewModels()
+    private val viewModel: RegionSelectionViewModel by activityViewModels()
     private lateinit var savedStateHandle: SavedStateHandle
     private lateinit var binding: FragmentWelcomeScreenBinding
 
@@ -35,6 +34,10 @@ class WelcomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentWelcomeScreenBinding.inflate(layoutInflater, container, false)
+
+        binding.viewModel = viewModel
+        binding.clickListener = RetryButtonClickListener { viewModel.onRetry() }
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -44,36 +47,17 @@ class WelcomeScreenFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                regionSelectionViewModel.uiState.collect { uiState ->
-                    if (uiState.isLoading) {
-                        showProgressIndicator()
-                    } else {
-                        showRegionsList()
-                        bindRegionsList(uiState.regions)
-                    }
+                viewModel.uiState.collect { uiState ->
+                    val regionModelAdapter =
+                        RegionModelAdapter(onClickListener = RegionItemClickListener {
+                            viewModel.saveRegion(it)
+                            savedStateHandle[REGION_SELECTED] = true
+                            findNavController().popBackStack()
+                        })
+                    binding.regionListContainer.regionListRv.adapter = regionModelAdapter
+                    regionModelAdapter.submitList(uiState.regions)
                 }
             }
         }
-    }
-
-    private fun showProgressIndicator() {
-        binding.regionListContainer.progressIndicator.visibility = View.VISIBLE
-        binding.regionListContainer.regionListRv.visibility = View.GONE
-    }
-
-    private fun showRegionsList() {
-        binding.regionListContainer.progressIndicator.visibility = View.GONE
-        binding.regionListContainer.regionListRv.visibility = View.VISIBLE
-    }
-
-    private fun bindRegionsList(regions: List<RegionModel>) {
-        val regionModelAdapter =
-            RegionModelAdapter(onClickListener = RegionItemClickListener {
-                regionSelectionViewModel.saveRegion(it)
-                savedStateHandle[REGION_SELECTED] = true
-                findNavController().popBackStack()
-            })
-        binding.regionListContainer.regionListRv.adapter = regionModelAdapter
-        regionModelAdapter.submitList(regions)
     }
 }

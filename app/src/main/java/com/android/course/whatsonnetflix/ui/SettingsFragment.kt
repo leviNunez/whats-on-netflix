@@ -1,12 +1,16 @@
 package com.android.course.whatsonnetflix.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.android.course.whatsonnetflix.utils.PrefConfig
 import com.android.course.whatsonnetflix.R
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,8 +31,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val savedStateHandle = currentBackStackEntry.savedStateHandle
         savedStateHandle.getLiveData<Boolean>(RegionUpdateFragment.REGION_UPDATED)
             .observe(currentBackStackEntry) { regionUpdated ->
-                Timber.i("Region updated!")
-                if (regionUpdated) setRegionPreferenceSummary()
+                if (regionUpdated) {
+                    setRegionPreferenceSummary()
+                }
             }
 
     }
@@ -38,7 +43,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         regionPreference = findPreference(getString(R.string.preference_file_key))
         setRegionPreferenceSummary()
-
 
         regionPreference?.setOnPreferenceClickListener {
             navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToRegionUpdateFragment())
