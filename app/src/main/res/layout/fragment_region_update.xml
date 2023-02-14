@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.android.course.whatsonnetflix.viewmodel.RegionSelectionViewModel" />
+            type="com.whatsonnetflix.viewmodel.RegionSelectionViewModel" />
 
         <variable
             name="clickListener"
-            type="com.android.course.whatsonnetflix.ui.RetryButtonClickListener" />
+            type="com.whatsonnetflix.ui.RetryButtonClickListener" />
     </data>
 
     <LinearLayout
