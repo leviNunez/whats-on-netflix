@@ -9,11 +9,11 @@
 
         <variable
             name="netflixItem"
-            type="com.android.course.whatsonnetflix.domain.NetflixItemModel" />
+            type="com.whatsonnetflix.domain.NetflixItemModel" />
 
         <variable
             name="clickListener"
-            type="com.android.course.whatsonnetflix.ui.adapter.NetflixItemClickListener" />
+            type="com.whatsonnetflix.ui.adapter.NetflixItemClickListener" />
     </data>
 
         <com.google.android.material.imageview.ShapeableImageView

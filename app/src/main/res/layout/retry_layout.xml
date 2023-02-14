@@ -10,7 +10,7 @@
 
         <variable
             name="clickListener"
-            type="com.android.course.whatsonnetflix.ui.RetryButtonClickListener" />
+            type="com.whatsonnetflix.ui.RetryButtonClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

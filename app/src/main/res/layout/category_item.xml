@@ -7,7 +7,7 @@
 
         <variable
             name="category"
-            type="com.android.course.whatsonnetflix.domain.CategoryModel" />
+            type="com.whatsonnetflix.domain.CategoryModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

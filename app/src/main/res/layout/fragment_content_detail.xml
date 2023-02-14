@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.android.course.whatsonnetflix.viewmodel.ContentDetailViewModel" />
+            type="com.whatsonnetflix.viewmodel.ContentDetailViewModel" />
     </data>
 
 
